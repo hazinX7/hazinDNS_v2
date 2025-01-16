@@ -1,0 +1,33 @@
+﻿@model IEnumerable<hazinDNS_v2.Models.Product>
+
+@{
+    ViewData["Title"] = "HazinDNS - Главная";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4">Добро пожаловать в HazinDNS</h1>
+    <p class="lead">Ваш магазин бытовой техники</p>
+</div>
+
+<div class="container">
+    <div class="row g-4">
+        @foreach (var product in Model)
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card product-card h-100 shadow-sm">
+                    <div class="product-image-container">
+                        <img src="@product.ImageUrl" class="product-image" alt="@product.Name">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">@product.Description</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <span class="product-price">@product.Price.ToString("C")</span>
+                            <button class="btn btn-primary">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

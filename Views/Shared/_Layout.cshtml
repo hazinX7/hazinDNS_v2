@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - hazinDNS_v2</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/hazinDNS_v2.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">hazinDNS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Главная</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item" id="loginItem">
+                            <a class="nav-link text-dark" href="/Home/Login">Войти</a>
+                        </li>
+                        <li class="nav-item" id="logoutItem" style="display: none;">
+                            <a class="nav-link text-dark" href="#" onclick="logout()">Выйти</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - hazinDNS_v2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        // Проверяем наличие токена при загрузке страницы
+        window.onload = function() {
+            const token = localStorage.getItem('jwt_token');
+            if (token) {
+                document.getElementById('loginItem').style.display = 'none';
+                document.getElementById('logoutItem').style.display = 'block';
+            } else {
+                document.getElementById('loginItem').style.display = 'block';
+                document.getElementById('logoutItem').style.display = 'none';
+            }
+        }
+
+        // Функция выхода
+        function logout() {
+            localStorage.removeItem('jwt_token');
+            window.location.href = '/Home/Login';
+        }
+
+        // Добавляем токен к каждому запросу
+        let originalFetch = window.fetch;
+        window.fetch = function() {
+            let token = localStorage.getItem('jwt_token');
+            if (token && !arguments[1].headers) {
+                arguments[1] = {
+                    ...arguments[1],
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+            } else if (token && arguments[1].headers) {
+                arguments[1].headers = {
+                    ...arguments[1].headers,
+                    'Authorization': `Bearer ${token}`
+                };
+            }
+            return originalFetch.apply(this, arguments);
+        }
+    </script>
+</body>
+</html>
