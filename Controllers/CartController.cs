@@ -73,6 +73,12 @@ namespace hazinDNS_v2.Controllers
                 _logger.LogInformation($"Adding product to cart. ProductId: {model.ProductId}");
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 _logger.LogInformation($"UserId: {userId}");
+
+                if (userId == null)
+                {
+                    return Unauthorized(new { success = false, message = "Необходима авторизация" });
+                }
+
                 var product = await _context.Products.FindAsync(model.ProductId);
                 
                 if (product == null)
@@ -81,22 +87,7 @@ namespace hazinDNS_v2.Controllers
                     return Json(new { success = false, message = "Продукт не найден" });
                 }
 
-                string cartId;
-                if (userId != null) // Для авторизованных пользователей
-                {
-                    _logger.LogInformation("Processing cart for authorized user");
-                    cartId = $"user_{userId}";
-                }
-                else // Для неавторизованных пользователей
-                {
-                    _logger.LogInformation("Processing cart for unauthorized user");
-                    // Создаем новую сессию, если её нет
-                    if (string.IsNullOrEmpty(HttpContext.Session.Id))
-                    {
-                        HttpContext.Session.SetString("_dummy", "_");
-                    }
-                    cartId = $"session_{HttpContext.Session.Id}";
-                }
+                string cartId = $"user_{userId}";
 
                 var cartItem = await _context.CartItems
                     .FirstOrDefaultAsync(ci => ci.CartId == cartId && ci.ProductId == model.ProductId);

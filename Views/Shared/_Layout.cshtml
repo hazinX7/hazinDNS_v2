@@ -173,9 +173,15 @@
             })
             .then(response => {
                 console.log('Response status:', response.status);
+                if (response.status === 401) {
+                    alert('Необходима авторизация');
+                    window.location.href = '/Home/Login';
+                    return;
+                }
                 return response.json();
             })
             .then(data => {
+                if (!data) return;
                 console.log('Response data:', data);
                 if (data.success) {
                     updateCartCount();
@@ -183,6 +189,8 @@
                     if (window.location.pathname === '/Cart' || window.location.pathname === '/Cart/Index') {
                         window.location.reload();
                     }
+                } else if (data.message) {
+                    alert(data.message);
                 }
             })
             .catch(error => {
