@@ -4,6 +4,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System;
+using hazinDNS_v2.Controllers;
+using Microsoft.Extensions.Logging;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Text.Json;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace hazinDNS_v2
 {
@@ -19,6 +26,7 @@ namespace hazinDNS_v2
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
+                options.Cookie.SameSite = SameSiteMode.Lax;
             });
 
             var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT key is not configured");
@@ -27,6 +35,8 @@ namespace hazinDNS_v2
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<CartController>();
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -41,7 +51,21 @@ namespace hazinDNS_v2
                         ValidIssuer = jwtIssuer,
                         ValidAudience = jwtAudience,
                         IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(jwtKey))
+                            Encoding.UTF8.GetBytes(jwtKey)),
+                    };
+                    options.SaveToken = true;
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnTokenValidated = context =>
+                        {
+                            var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+                            if (context.Principal?.Claims != null)
+                            {
+                                logger.LogInformation("Token validated. Claims: {Claims}", 
+                                    string.Join(", ", context.Principal.Claims.Select(c => $"{c.Type}: {c.Value}")));
+                            }
+                            return Task.CompletedTask;
+                        }
                     };
                 });
 

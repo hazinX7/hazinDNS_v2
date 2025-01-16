@@ -10,8 +10,8 @@ using hazinDNS_v2.Data;
 namespace hazinDNS_v2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250116204612_AddCartItems")]
-    partial class AddCartItems
+    [Migration("20250116220552_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

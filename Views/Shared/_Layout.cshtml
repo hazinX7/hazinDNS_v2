@@ -151,9 +151,11 @@
         }
 
         function updateCartCount() {
+            const token = localStorage.getItem('jwt_token');
             fetch('/Cart/GetCartCount', {
                 headers: {
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Authorization': token ? `Bearer ${token}` : ''
                 }
             })
             .then(response => response.json())
@@ -169,24 +171,73 @@
         }
 
         function addToCart(productId) {
+            console.log('Adding product to cart:', productId);
+            const token = localStorage.getItem('jwt_token');
             fetch('/Cart/AddToCart', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Authorization': token ? `Bearer ${token}` : ''
                 },
                 body: JSON.stringify({ productId: productId })
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log('Response status:', response.status);
+                return response.json();
+            })
             .then(data => {
+                console.log('Response data:', data);
                 if (data.success) {
                     updateCartCount();
                     alert('Товар добавлен в корзину');
+                    if (window.location.pathname === '/Cart' || window.location.pathname === '/Cart/Index') {
+                        window.location.reload();
+                    }
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
             });
+        }
+
+        function removeFromCart(productId) {
+            if (confirm('Вы уверены, что хотите удалить этот товар из корзины?')) {
+                const token = localStorage.getItem('jwt_token');
+                fetch('/Cart/RemoveFromCart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token ? `Bearer ${token}` : ''
+                    },
+                    body: JSON.stringify({ productId: productId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+
+        function clearCart() {
+            if (confirm('Вы уверены, что хотите очистить корзину?')) {
+                const token = localStorage.getItem('jwt_token');
+                fetch('/Cart/ClearCart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token ? `Bearer ${token}` : ''
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload();
+                    }
+                });
+            }
         }
 
         // Обновляем счетчик при загрузке страницы

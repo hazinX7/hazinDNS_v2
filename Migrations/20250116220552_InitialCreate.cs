@@ -5,7 +5,7 @@
 namespace hazinDNS_v2.Migrations
 {
     /// <inheritdoc />
-    public partial class AddCartItems : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

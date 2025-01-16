@@ -6,6 +6,7 @@ using System.Text;
 using hazinDNS_v2.Models;
 using hazinDNS_v2.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace hazinDNS_v2.Controllers
 {
@@ -16,38 +17,56 @@ namespace hazinDNS_v2.Controllers
         private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _context;
         private readonly ILogger<AuthController> _logger;
+        private readonly CartController _cartController;
 
-        public AuthController(IConfiguration configuration, ApplicationDbContext context, ILogger<AuthController> logger)
+        public AuthController(IConfiguration configuration, ApplicationDbContext context, ILogger<AuthController> logger, CartController cartController)
         {
             _configuration = configuration;
             _context = context;
             _logger = logger;
+            _cartController = cartController;
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            _logger.LogInformation($"Попытка входа для пользователя: {model.Username}");
-
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Username == model.Username);
-
-            if (user == null)
+            try
             {
-                _logger.LogWarning($"Пользователь не найден: {model.Username}");
-                return Unauthorized("Неверное имя пользователя или пароль");
-            }
+                _logger.LogInformation($"Попытка входа для пользователя: {model.Username}");
 
-            if (user.Password != model.Password)
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(u => u.Username == model.Username);
+
+                if (user == null)
+                {
+                    _logger.LogWarning($"Пользователь не найден: {model.Username}");
+                    return Unauthorized("Неверное имя пользователя или пароль");
+                }
+
+                if (user.Password != model.Password)
+                {
+                    _logger.LogWarning($"Неверный пароль для пользователя: {model.Username}");
+                    return Unauthorized("Неверное имя пользователя или пароль");
+                }
+
+                var token = GenerateJwtToken(user);
+                try
+                {
+                    await _cartController.MergeCartAsync(user.Id.ToString());
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Ошибка при слиянии корзин");
+                }
+                
+                _logger.LogInformation($"Успешный вход пользователя: {model.Username}");
+                return Ok(new { token });
+            }
+            catch (Exception ex)
             {
-                _logger.LogWarning($"Неверный пароль для пользователя: {model.Username}");
-                return Unauthorized("Неверное имя пользователя или пароль");
+                _logger.LogError(ex, "Ошибка при входе пользователя");
+                return StatusCode(500, "Произошла ошибка при входе");
             }
-
-            var token = GenerateJwtToken(user);
-            _logger.LogInformation($"Успешный вход пользователя: {model.Username}");
-            
-            return Ok(new { token });
         }
 
         [HttpPost("register")]
@@ -91,9 +110,10 @@ namespace hazinDNS_v2.Controllers
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var claims = new[]
+            var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username),
+                new Claim("UserId", user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, user.Role)
             };
