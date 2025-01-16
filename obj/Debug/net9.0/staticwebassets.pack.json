@@ -49,6 +49,10 @@
       "PackagePath": "staticwebassets\\images\\sony-tv.jpg"
     },
     {
+      "Id": "D:\\repos\\hazinDNS_v2\\wwwroot\\images\\washer.jpg",
+      "PackagePath": "staticwebassets\\images\\washer.jpg"
+    },
+    {
       "Id": "D:\\repos\\hazinDNS_v2\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

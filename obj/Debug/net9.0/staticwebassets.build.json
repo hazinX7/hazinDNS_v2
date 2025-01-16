@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "KGOEndibedT1es2iDn/8QhuvuzaM0kL4kwV8DAi1MYg=",
+  "Hash": "FJUvDuG/Y7WZamCvnqM5MHLBSI18ugTPIWn0wlurY+0=",
   "Source": "hazinDNS_v2",
   "BasePath": "_content/hazinDNS_v2",
   "Mode": "Default",
@@ -1632,6 +1632,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\sony-tv.jpg"
+    },
+    {
+      "Identity": "D:\\repos\\hazinDNS_v2\\wwwroot\\images\\washer.jpg",
+      "SourceId": "hazinDNS_v2",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\repos\\hazinDNS_v2\\wwwroot\\",
+      "BasePath": "_content/hazinDNS_v2",
+      "RelativePath": "images/washer#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "52ufse9ejk",
+      "Integrity": "ExbwBFKtqa+ipO0tKAMrpXCl/gIHDxEoeUzOz7HwrDE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\washer.jpg"
     },
     {
       "Identity": "D:\\repos\\hazinDNS_v2\\wwwroot\\js\\site.js",
@@ -4843,6 +4864,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-3xb25kk3Xt+94xViiGrulNBGTgBIFtWuDu+C/XWdkP4="
+        }
+      ]
+    },
+    {
+      "Route": "images/washer.52ufse9ejk.jpg",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\wwwroot\\images\\washer.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "23"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ExbwBFKtqa+ipO0tKAMrpXCl/gIHDxEoeUzOz7HwrDE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 16 Jan 2025 20:35:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "52ufse9ejk"
+        },
+        {
+          "Name": "label",
+          "Value": "images/washer.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ExbwBFKtqa+ipO0tKAMrpXCl/gIHDxEoeUzOz7HwrDE="
+        }
+      ]
+    },
+    {
+      "Route": "images/washer.jpg",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\wwwroot\\images\\washer.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "23"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ExbwBFKtqa+ipO0tKAMrpXCl/gIHDxEoeUzOz7HwrDE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 16 Jan 2025 20:35:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ExbwBFKtqa+ipO0tKAMrpXCl/gIHDxEoeUzOz7HwrDE="
         }
       ]
     },

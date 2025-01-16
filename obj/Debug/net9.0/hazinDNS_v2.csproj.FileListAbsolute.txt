@@ -227,3 +227,4 @@ D:\repos\hazinDNS_v2\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdCo
 D:\repos\hazinDNS_v2\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 D:\repos\hazinDNS_v2\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
 D:\repos\hazinDNS_v2\obj\Debug\net9.0\compressed\5ugpzc3j6o-miww1yoplv.gz
+D:\repos\hazinDNS_v2\obj\Debug\net9.0\hazinDNS_v2.sourcelink.json

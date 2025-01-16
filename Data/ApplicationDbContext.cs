@@ -12,5 +12,6 @@ namespace hazinDNS_v2.Data
 
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
     }
 } 

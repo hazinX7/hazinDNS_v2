@@ -1,0 +1,107 @@
+@model IEnumerable<hazinDNS_v2.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Корзина";
+}
+
+<div class="container mt-4">
+    <h2>Корзина</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            Ваша корзина пуста
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Товар</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Сумма</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="@item.Product.ImageUrl" alt="@item.Product.Name" style="width: 50px; height: 50px; object-fit: contain; margin-right: 10px;">
+                                    <span>@item.Product.Name</span>
+                                </div>
+                            </td>
+                            <td>@item.Product.Price.ToString("C")</td>
+                            <td>@item.Quantity</td>
+                            <td>@((item.Product.Price * item.Quantity).ToString("C"))</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" onclick="removeFromCart(@item.ProductId)">
+                                    Удалить
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end"><strong>Итого:</strong></td>
+                        <td>
+                            <strong>
+                                @Model.Sum(item => item.Product.Price * item.Quantity).ToString("C")
+                            </strong>
+                        </td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="clearCart()">
+                                Очистить корзину
+                            </button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        function removeFromCart(productId) {
+            if (confirm('Вы уверены, что хотите удалить этот товар из корзины?')) {
+                fetch('/Cart/RemoveFromCart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ productId: productId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                });
+            }
+        }
+
+        function clearCart() {
+            if (confirm('Вы уверены, что хотите очистить корзину?')) {
+                fetch('/Cart/ClearCart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                });
+            }
+        }
+    </script>
+} 
