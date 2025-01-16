@@ -112,22 +112,12 @@ namespace hazinDNS_v2.Controllers
         public async Task<IActionResult> GetCartCount()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            string cartId;
-
-            if (userId != null)
+            if (userId == null)
             {
-                cartId = $"user_{userId}";
-            }
-            else
-            {
-                // Создаем новую сессию, если её нет
-                if (string.IsNullOrEmpty(HttpContext.Session.Id))
-                {
-                    HttpContext.Session.SetString("_dummy", "_");
-                }
-                cartId = $"session_{HttpContext.Session.Id}";
+                return Json(new { count = 0 });
             }
 
+            string cartId = $"user_{userId}";
             int count = await _context.CartItems
                 .Where(ci => ci.CartId == cartId)
                 .SumAsync(ci => ci.Quantity);
@@ -186,21 +176,12 @@ namespace hazinDNS_v2.Controllers
             try
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                string cartId;
-
-                if (userId != null)
+                if (userId == null)
                 {
-                    cartId = $"user_{userId}";
-                }
-                else
-                {
-                    cartId = HttpContext.Session.GetString("CartId");
-                    if (string.IsNullOrEmpty(cartId) || !cartId.StartsWith("session_"))
-                    {
-                        return Json(new { success = false, message = "Корзина не найдена" });
-                    }
+                    return Unauthorized(new { success = false, message = "Необходима авторизация" });
                 }
 
+                string cartId = $"user_{userId}";
                 var cartItem = await _context.CartItems
                     .FirstOrDefaultAsync(ci => ci.CartId == cartId && ci.ProductId == model.ProductId);
 
@@ -226,21 +207,12 @@ namespace hazinDNS_v2.Controllers
             try
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                string cartId;
-
-                if (userId != null)
+                if (userId == null)
                 {
-                    cartId = $"user_{userId}";
-                }
-                else
-                {
-                    cartId = HttpContext.Session.GetString("CartId");
-                    if (string.IsNullOrEmpty(cartId) || !cartId.StartsWith("session_"))
-                    {
-                        return Json(new { success = false, message = "Корзина не найдена" });
-                    }
+                    return Unauthorized(new { success = false, message = "Необходима авторизация" });
                 }
 
+                string cartId = $"user_{userId}";
                 var cartItems = await _context.CartItems
                     .Where(ci => ci.CartId == cartId)
                     .ToListAsync();

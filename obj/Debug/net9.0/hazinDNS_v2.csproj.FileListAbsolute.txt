@@ -141,7 +141,6 @@ D:\repos\hazinDNS_v2\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.s
 D:\repos\hazinDNS_v2\obj\Debug\net9.0\scopedcss\bundle\hazinDNS_v2.styles.css
 D:\repos\hazinDNS_v2\obj\Debug\net9.0\scopedcss\projectbundle\hazinDNS_v2.bundle.scp.css
 D:\repos\hazinDNS_v2\obj\Debug\net9.0\compressed\gogzljpcc2-61n19gt1b8.gz
-D:\repos\hazinDNS_v2\obj\Debug\net9.0\compressed\eplncikvyd-xtxxf3hu2r.gz
 D:\repos\hazinDNS_v2\obj\Debug\net9.0\compressed\ltv281apw5-bqjiyaj88i.gz
 D:\repos\hazinDNS_v2\obj\Debug\net9.0\compressed\hg9794e7rt-c2jlpeoesf.gz
 D:\repos\hazinDNS_v2\obj\Debug\net9.0\compressed\1bqvgqz5f9-erw9l3u2r3.gz
@@ -226,5 +225,6 @@ D:\repos\hazinDNS_v2\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
 D:\repos\hazinDNS_v2\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\repos\hazinDNS_v2\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 D:\repos\hazinDNS_v2\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
-D:\repos\hazinDNS_v2\obj\Debug\net9.0\compressed\5ugpzc3j6o-miww1yoplv.gz
 D:\repos\hazinDNS_v2\obj\Debug\net9.0\hazinDNS_v2.sourcelink.json
+D:\repos\hazinDNS_v2\obj\Debug\net9.0\compressed\5ugpzc3j6o-mnkxfiexmg.gz
+D:\repos\hazinDNS_v2\obj\Debug\net9.0\compressed\eplncikvyd-1dblnc5miy.gz

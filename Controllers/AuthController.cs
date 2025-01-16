@@ -54,15 +54,6 @@ namespace hazinDNS_v2.Controllers
 
                 await HttpContext.SignInAsync("Cookies", principal);
 
-                try
-                {
-                    await _cartController.MergeCartAsync(user.Id.ToString());
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Ошибка при слиянии корзин");
-                }
-
                 return Ok(new { success = true });
             }
             catch (Exception ex)

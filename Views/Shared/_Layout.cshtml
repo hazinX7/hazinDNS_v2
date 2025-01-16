@@ -63,6 +63,10 @@
         .btn-primary {
             padding: 0.5rem 1.5rem;
         }
+
+        #profileItem {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -83,6 +87,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="#" onclick="openCart()">
                                 <i class="bi bi-cart"></i> Корзина (<span id="cartItemCount">0</span>)
+                            </a>
+                        </li>
+                        <li class="nav-item" id="profileItem">
+                            <a class="nav-link text-dark" href="/Profile">
+                                <i class="bi bi-person"></i> Личный кабинет
                             </a>
                         </li>
                         <li class="nav-item" id="loginItem">
@@ -119,9 +128,11 @@
                 if (response.ok) {
                     document.getElementById('loginItem').style.display = 'none';
                     document.getElementById('logoutItem').style.display = 'block';
+                    document.getElementById('profileItem').style.display = 'block';
                 } else {
                     document.getElementById('loginItem').style.display = 'block';
                     document.getElementById('logoutItem').style.display = 'none';
+                    document.getElementById('profileItem').style.display = 'none';
                 }
             });
         }
