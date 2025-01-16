@@ -125,13 +125,20 @@ namespace hazinDNS_v2.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCartCount()
         {
-            var cartId = GetCartId();
-            var count = await _context.CartItems
-                .Where(ci => ci.CartId == cartId)
-                .SumAsync(ci => ci.Quantity);
-            
-            _logger.LogInformation($"Cart count for ID {cartId}: {count}");
-            return Json(new { count = count });
+            try
+            {
+                var cartId = GetCartId();
+                var count = await _context.CartItems
+                    .Where(ci => ci.CartId == cartId)
+                    .SumAsync(ci => ci.Quantity);
+                
+                return Json(new { count });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting cart count");
+                return Json(new { count = 0 });
+            }
         }
     }
 

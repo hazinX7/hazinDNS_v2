@@ -2,10 +2,11 @@
 
 @{
     ViewData["Title"] = "Корзина";
+    var totalItems = Model.Sum(item => item.Quantity);
 }
 
 <div class="container mt-4">
-    <h2>Корзина</h2>
+    <h2>Корзина (@totalItems)</h2>
 
     @if (!Model.Any())
     {

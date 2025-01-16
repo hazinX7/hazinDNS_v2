@@ -82,7 +82,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">
-                                <i class="bi bi-cart"></i> Корзина <span id="cartItemCount" class="badge bg-primary">0</span>
+                                <i class="bi bi-cart"></i> Корзина (<span id="cartItemCount">0</span>)
                             </a>
                         </li>
                         <li class="nav-item" id="loginItem">
@@ -150,26 +150,38 @@
             return originalFetch.apply(this, arguments);
         }
 
+        function updateCartCount() {
+            fetch('/Cart/GetCartCount', {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const cartCountElement = document.getElementById('cartItemCount');
+                if (cartCountElement) {
+                    cartCountElement.textContent = data.count || 0;
+                }
+            })
+            .catch(error => {
+                console.error('Error updating cart count:', error);
+            });
+        }
+
         function addToCart(productId) {
             fetch('/Cart/AddToCart', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({ productId: productId })
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    updateCartCount();
                     alert('Товар добавлен в корзину');
-                    setTimeout(updateCartCount, 100);
-                } else {
-                    throw new Error('Failed to add item to cart');
                 }
             })
             .catch(error => {
@@ -177,25 +189,8 @@
             });
         }
 
-        function updateCartCount() {
-            fetch('/Cart/GetCartCount')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Cart count data:', data);
-                    document.getElementById('cartItemCount').textContent = data.count;
-                })
-                .catch(error => {
-                    console.error('Error updating cart count:', error);
-                });
-        }
-
         // Обновляем счетчик при загрузке страницы
-        document.addEventListener('DOMContentLoaded', updateCartCount);
+        window.addEventListener('load', updateCartCount);
     </script>
 </body>
 </html>
