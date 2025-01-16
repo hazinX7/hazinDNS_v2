@@ -20,5 +20,7 @@ namespace hazinDNS_v2.Models
         public string Email { get; set; } = string.Empty;
 
         public string Role { get; set; } = "User";
+
+        public decimal Balance { get; set; }
     }
 } 

@@ -84,6 +84,11 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav">
+                        <li class="nav-item" id="balanceItem" style="display: none;">
+                            <a class="nav-link text-dark" href="/Balance">
+                                <i class="bi bi-wallet2"></i> Баланс: <span id="userBalance">0</span> ₽
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="#" onclick="openCart()">
                                 <i class="bi bi-cart"></i> Корзина (<span id="cartItemCount">0</span>)
@@ -121,7 +126,14 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
-        // Проверяем наличие токена при загрузке страницы
+        function updateUserBalance() {
+            fetch('/Balance/GetBalance')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('userBalance').textContent = data.balance;
+                });
+        }
+
         window.onload = function() {
             fetch('/api/Auth/checkAuth')
             .then(response => {
@@ -129,10 +141,13 @@
                     document.getElementById('loginItem').style.display = 'none';
                     document.getElementById('logoutItem').style.display = 'block';
                     document.getElementById('profileItem').style.display = 'block';
+                    document.getElementById('balanceItem').style.display = 'block';
+                    updateUserBalance();
                 } else {
                     document.getElementById('loginItem').style.display = 'block';
                     document.getElementById('logoutItem').style.display = 'none';
                     document.getElementById('profileItem').style.display = 'none';
+                    document.getElementById('balanceItem').style.display = 'none';
                 }
             });
         }
