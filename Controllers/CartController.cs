@@ -35,29 +35,17 @@ namespace hazinDNS_v2.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var cartItems = new List<CartItem>();
+            if (userId == null)
+            {
+                return Unauthorized(new { message = "Необходима авторизация" });
+            }
 
-            if (userId != null) // Для авторизованных пользователей
-            {
-                var cartId = $"user_{userId}";
-                cartItems = await _context.CartItems
-                    .Include(ci => ci.Product)
-                    .Where(ci => ci.CartId == cartId)
-                    .ToListAsync();
-            }
-            else // Для неавторизованных пользователей
-            {
-                // Создаем новую сессию, если её нет
-                if (string.IsNullOrEmpty(HttpContext.Session.Id))
-                {
-                    HttpContext.Session.SetString("_dummy", "_");
-                }
-                var sessionCartId = $"session_{HttpContext.Session.Id}";
-                cartItems = await _context.CartItems
-                    .Include(ci => ci.Product)
-                    .Where(ci => ci.CartId == sessionCartId)
-                    .ToListAsync();
-            }
+            var cartItems = new List<CartItem>();
+            var cartId = $"user_{userId}";
+            cartItems = await _context.CartItems
+                .Include(ci => ci.Product)
+                .Where(ci => ci.CartId == cartId)
+                .ToListAsync();
 
             return View(cartItems);
         }
