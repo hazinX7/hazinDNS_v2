@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace hazinDNS_v2
 {
@@ -24,9 +25,13 @@ namespace hazinDNS_v2
             builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-                options.Cookie.SameSite = SameSiteMode.Lax;
+                options.Cookie = new CookieBuilder
+                {
+                    Name = ".hazinDNS.Session",
+                    HttpOnly = true,
+                    IsEssential = true,
+                    SameSite = SameSiteMode.Lax
+                };
             });
 
             var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT key is not configured");
@@ -39,34 +44,13 @@ namespace hazinDNS_v2
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            builder.Services.AddAuthentication("Cookies")
+                .AddCookie("Cookies", options =>
                 {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = jwtIssuer,
-                        ValidAudience = jwtAudience,
-                        IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(jwtKey)),
-                    };
-                    options.SaveToken = true;
-                    options.Events = new JwtBearerEvents
-                    {
-                        OnTokenValidated = context =>
-                        {
-                            var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
-                            if (context.Principal?.Claims != null)
-                            {
-                                logger.LogInformation("Token validated. Claims: {Claims}", 
-                                    string.Join(", ", context.Principal.Claims.Select(c => $"{c.Type}: {c.Value}")));
-                            }
-                            return Task.CompletedTask;
-                        }
-                    };
+                    options.Cookie.Name = ".hazinDNS.Auth";
+                    options.LoginPath = "/Home/Login";
+                    options.LogoutPath = "/Home/Logout";
+                    options.ExpireTimeSpan = TimeSpan.FromDays(1);
                 });
 
             var app = builder.Build();

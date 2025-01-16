@@ -7,6 +7,8 @@ using hazinDNS_v2.Models;
 using hazinDNS_v2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace hazinDNS_v2.Controllers
 {
@@ -32,24 +34,26 @@ namespace hazinDNS_v2.Controllers
         {
             try
             {
-                _logger.LogInformation($"Попытка входа для пользователя: {model.Username}");
-
                 var user = await _context.Users
                     .FirstOrDefaultAsync(u => u.Username == model.Username);
 
-                if (user == null)
+                if (user == null || user.Password != model.Password)
                 {
-                    _logger.LogWarning($"Пользователь не найден: {model.Username}");
                     return Unauthorized("Неверное имя пользователя или пароль");
                 }
 
-                if (user.Password != model.Password)
+                var claims = new List<Claim>
                 {
-                    _logger.LogWarning($"Неверный пароль для пользователя: {model.Username}");
-                    return Unauthorized("Неверное имя пользователя или пароль");
-                }
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Role, user.Role)
+                };
 
-                var token = GenerateJwtToken(user);
+                var identity = new ClaimsIdentity(claims, "Cookies");
+                var principal = new ClaimsPrincipal(identity);
+
+                await HttpContext.SignInAsync("Cookies", principal);
+
                 try
                 {
                     await _cartController.MergeCartAsync(user.Id.ToString());
@@ -58,9 +62,8 @@ namespace hazinDNS_v2.Controllers
                 {
                     _logger.LogError(ex, "Ошибка при слиянии корзин");
                 }
-                
-                _logger.LogInformation($"Успешный вход пользователя: {model.Username}");
-                return Ok(new { token });
+
+                return Ok(new { success = true });
             }
             catch (Exception ex)
             {
@@ -96,6 +99,24 @@ namespace hazinDNS_v2.Controllers
 
             _logger.LogInformation($"Пользователь успешно зарегистрирован: {model.Username}");
             return Ok(new { message = "Регистрация успешна" });
+        }
+
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync("Cookies");
+            HttpContext.Session.Clear();
+            return Ok(new { success = true });
+        }
+
+        [HttpGet("checkAuth")]
+        public IActionResult CheckAuth()
+        {
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                return Ok();
+            }
+            return Unauthorized();
         }
 
         private string GenerateJwtToken(User user)

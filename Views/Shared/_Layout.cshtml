@@ -114,48 +114,39 @@
     <script>
         // Проверяем наличие токена при загрузке страницы
         window.onload = function() {
-            const token = localStorage.getItem('jwt_token');
-            if (token) {
-                document.getElementById('loginItem').style.display = 'none';
-                document.getElementById('logoutItem').style.display = 'block';
-            } else {
-                document.getElementById('loginItem').style.display = 'block';
-                document.getElementById('logoutItem').style.display = 'none';
-            }
+            fetch('/api/Auth/checkAuth')
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('loginItem').style.display = 'none';
+                    document.getElementById('logoutItem').style.display = 'block';
+                } else {
+                    document.getElementById('loginItem').style.display = 'block';
+                    document.getElementById('logoutItem').style.display = 'none';
+                }
+            });
         }
 
         // Функция выхода
         function logout() {
-            localStorage.removeItem('jwt_token');
-            window.location.href = '/Home/Login';
-        }
-
-        // Добавляем токен к каждому запросу
-        let originalFetch = window.fetch;
-        window.fetch = function() {
-            let token = localStorage.getItem('jwt_token');
-            if (token && !arguments[1].headers) {
-                arguments[1] = {
-                    ...arguments[1],
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                };
-            } else if (token && arguments[1].headers) {
-                arguments[1].headers = {
-                    ...arguments[1].headers,
-                    'Authorization': `Bearer ${token}`
-                };
-            }
-            return originalFetch.apply(this, arguments);
+            fetch('/api/Auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                window.location.href = '/Home/Login';
+            })
+            .catch(error => {
+                console.error('Error during logout:', error);
+                window.location.href = '/Home/Login';
+            });
         }
 
         function updateCartCount() {
-            const token = localStorage.getItem('jwt_token');
             fetch('/Cart/GetCartCount', {
                 headers: {
-                    'Accept': 'application/json',
-                    'Authorization': token ? `Bearer ${token}` : ''
+                    'Accept': 'application/json'
                 }
             })
             .then(response => response.json())
@@ -172,13 +163,11 @@
 
         function addToCart(productId) {
             console.log('Adding product to cart:', productId);
-            const token = localStorage.getItem('jwt_token');
             fetch('/Cart/AddToCart', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': token ? `Bearer ${token}` : ''
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({ productId: productId })
             })
@@ -203,12 +192,10 @@
 
         function removeFromCart(productId) {
             if (confirm('Вы уверены, что хотите удалить этот товар из корзины?')) {
-                const token = localStorage.getItem('jwt_token');
                 fetch('/Cart/RemoveFromCart', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': token ? `Bearer ${token}` : ''
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ productId: productId })
                 })
@@ -223,12 +210,10 @@
 
         function clearCart() {
             if (confirm('Вы уверены, что хотите очистить корзину?')) {
-                const token = localStorage.getItem('jwt_token');
                 fetch('/Cart/ClearCart', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': token ? `Bearer ${token}` : ''
+                        'Content-Type': 'application/json'
                     }
                 })
                 .then(response => response.json())

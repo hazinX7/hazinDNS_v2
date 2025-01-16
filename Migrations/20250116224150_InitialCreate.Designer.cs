@@ -10,7 +10,7 @@ using hazinDNS_v2.Data;
 namespace hazinDNS_v2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250116220552_InitialCreate")]
+    [Migration("20250116224150_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

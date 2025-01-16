@@ -47,16 +47,16 @@ namespace hazinDNS_v2.Controllers
             }
             else // Для неавторизованных пользователей
             {
-                var sessionCart = HttpContext.Session.GetString("Cart");
-                if (!string.IsNullOrEmpty(sessionCart))
+                // Создаем новую сессию, если её нет
+                if (string.IsNullOrEmpty(HttpContext.Session.Id))
                 {
-                    var sessionCartItems = JsonSerializer.Deserialize<List<CartItem>>(sessionCart);
-                    foreach (var item in sessionCartItems)
-                    {
-                        item.Product = await _context.Products.FindAsync(item.ProductId);
-                    }
-                    cartItems = sessionCartItems;
+                    HttpContext.Session.SetString("_dummy", "_");
                 }
+                var sessionCartId = $"session_{HttpContext.Session.Id}";
+                cartItems = await _context.CartItems
+                    .Include(ci => ci.Product)
+                    .Where(ci => ci.CartId == sessionCartId)
+                    .ToListAsync();
             }
 
             return View(cartItems);
@@ -81,57 +81,43 @@ namespace hazinDNS_v2.Controllers
                     return Json(new { success = false, message = "Продукт не найден" });
                 }
 
+                string cartId;
                 if (userId != null) // Для авторизованных пользователей
                 {
                     _logger.LogInformation("Processing cart for authorized user");
-                    var cartId = $"user_{userId}";
-                    var cartItem = await _context.CartItems
-                        .FirstOrDefaultAsync(ci => ci.CartId == cartId && ci.ProductId == model.ProductId);
-
-                    if (cartItem == null)
-                    {
-                        cartItem = new CartItem
-                        {
-                            CartId = cartId,
-                            ProductId = model.ProductId,
-                            Quantity = 1
-                        };
-                        _context.CartItems.Add(cartItem);
-                        _logger.LogInformation("Created new cart item");
-                    }
-                    else
-                    {
-                        cartItem.Quantity++;
-                        _logger.LogInformation($"Updated quantity for existing cart item: {cartItem.Quantity}");
-                    }
-                    await _context.SaveChangesAsync();
+                    cartId = $"user_{userId}";
                 }
                 else // Для неавторизованных пользователей
                 {
                     _logger.LogInformation("Processing cart for unauthorized user");
-                    var sessionCart = HttpContext.Session.GetString("Cart");
-                    var cartItems = string.IsNullOrEmpty(sessionCart) 
-                        ? new List<CartItem>() 
-                        : JsonSerializer.Deserialize<List<CartItem>>(sessionCart);
-
-                    var cartItem = cartItems.FirstOrDefault(ci => ci.ProductId == model.ProductId);
-                    if (cartItem == null)
+                    // Создаем новую сессию, если её нет
+                    if (string.IsNullOrEmpty(HttpContext.Session.Id))
                     {
-                        cartItems.Add(new CartItem
-                        {
-                            ProductId = model.ProductId,
-                            Quantity = 1
-                        });
-                        _logger.LogInformation("Added new item to session cart");
+                        HttpContext.Session.SetString("_dummy", "_");
                     }
-                    else
-                    {
-                        cartItem.Quantity++;
-                        _logger.LogInformation($"Updated quantity in session cart: {cartItem.Quantity}");
-                    }
-
-                    HttpContext.Session.SetString("Cart", JsonSerializer.Serialize(cartItems));
+                    cartId = $"session_{HttpContext.Session.Id}";
                 }
+
+                var cartItem = await _context.CartItems
+                    .FirstOrDefaultAsync(ci => ci.CartId == cartId && ci.ProductId == model.ProductId);
+
+                if (cartItem == null)
+                {
+                    cartItem = new CartItem
+                    {
+                        CartId = cartId,
+                        ProductId = model.ProductId,
+                        Quantity = 1
+                    };
+                    _context.CartItems.Add(cartItem);
+                    _logger.LogInformation("Created new cart item");
+                }
+                else
+                {
+                    cartItem.Quantity++;
+                    _logger.LogInformation($"Updated quantity for existing cart item: {cartItem.Quantity}");
+                }
+                await _context.SaveChangesAsync();
 
                 return Json(new { success = true });
             }
@@ -147,24 +133,25 @@ namespace hazinDNS_v2.Controllers
         public async Task<IActionResult> GetCartCount()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            int count = 0;
+            string cartId;
 
             if (userId != null)
             {
-                var cartId = $"user_{userId}";
-                count = await _context.CartItems
-                    .Where(ci => ci.CartId == cartId)
-                    .SumAsync(ci => ci.Quantity);
+                cartId = $"user_{userId}";
             }
             else
             {
-                var sessionCart = HttpContext.Session.GetString("Cart");
-                if (!string.IsNullOrEmpty(sessionCart))
+                // Создаем новую сессию, если её нет
+                if (string.IsNullOrEmpty(HttpContext.Session.Id))
                 {
-                    var cartItems = JsonSerializer.Deserialize<List<CartItem>>(sessionCart);
-                    count = cartItems.Sum(ci => ci.Quantity);
+                    HttpContext.Session.SetString("_dummy", "_");
                 }
+                cartId = $"session_{HttpContext.Session.Id}";
             }
+
+            int count = await _context.CartItems
+                .Where(ci => ci.CartId == cartId)
+                .SumAsync(ci => ci.Quantity);
 
             return Json(new { count });
         }
@@ -175,40 +162,35 @@ namespace hazinDNS_v2.Controllers
             try 
             {
                 _logger.LogInformation($"Starting cart merge for user {userId}");
-                var sessionCart = HttpContext.Session.GetString("Cart");
-                if (string.IsNullOrEmpty(sessionCart))
+                var sessionCartId = $"session_{HttpContext.Session.Id}";
+                if (string.IsNullOrEmpty(sessionCartId))
                 {
                     _logger.LogInformation("No session cart found");
                     return;
                 }
 
-                var cartId = $"user_{userId}";
-                var sessionCartItems = JsonSerializer.Deserialize<List<CartItem>>(sessionCart);
+                var userCartId = $"user_{userId}";
+                await ClearCartItemsAsync(userCartId);
+
+                var sessionCartItems = await _context.CartItems
+                    .Where(ci => ci.CartId == sessionCartId)
+                    .ToListAsync();
+
                 foreach (var sessionItem in sessionCartItems)
                 {
-                    var cartItem = await _context.CartItems
-                        .FirstOrDefaultAsync(ci => ci.CartId == cartId && ci.ProductId == sessionItem.ProductId);
-
-                    if (cartItem != null)
+                    var newCartItem = new CartItem
                     {
-                        cartItem.Quantity += sessionItem.Quantity;
-                        _logger.LogInformation($"Updated quantity for product {sessionItem.ProductId}");
-                    }
-                    else
-                    {
-                        cartItem = new CartItem
-                        {
-                            CartId = cartId,
-                            ProductId = sessionItem.ProductId,
-                            Quantity = sessionItem.Quantity
-                        };
-                        _context.CartItems.Add(cartItem);
-                        _logger.LogInformation($"Added new cart item for product {sessionItem.ProductId}");
-                    }
+                        CartId = userCartId,
+                        ProductId = sessionItem.ProductId,
+                        Quantity = sessionItem.Quantity
+                    };
+                    _context.CartItems.Add(newCartItem);
+                    _logger.LogInformation($"Added new cart item for product {sessionItem.ProductId}");
                 }
 
                 await _context.SaveChangesAsync();
-                HttpContext.Session.Remove("Cart");
+                await ClearCartItemsAsync(sessionCartId);
+                HttpContext.Session.Clear();
                 _logger.LogInformation("Cart merge completed successfully");
             }
             catch (Exception ex)
@@ -216,6 +198,93 @@ namespace hazinDNS_v2.Controllers
                 _logger.LogError(ex, "Error during cart merge");
                 throw;
             }
+        }
+
+        [HttpPost]
+        [Route("RemoveFromCart")]
+        public async Task<IActionResult> RemoveFromCart([FromBody] AddToCartModel model)
+        {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                string cartId;
+
+                if (userId != null)
+                {
+                    cartId = $"user_{userId}";
+                }
+                else
+                {
+                    cartId = HttpContext.Session.GetString("CartId");
+                    if (string.IsNullOrEmpty(cartId) || !cartId.StartsWith("session_"))
+                    {
+                        return Json(new { success = false, message = "Корзина не найдена" });
+                    }
+                }
+
+                var cartItem = await _context.CartItems
+                    .FirstOrDefaultAsync(ci => ci.CartId == cartId && ci.ProductId == model.ProductId);
+
+                if (cartItem != null)
+                {
+                    _context.CartItems.Remove(cartItem);
+                    await _context.SaveChangesAsync();
+                }
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error removing item from cart");
+                return StatusCode(500, new { success = false, message = "Произошла ошибка при удалении товара из корзины" });
+            }
+        }
+
+        [HttpPost]
+        [Route("ClearCart")]
+        public async Task<IActionResult> ClearCart()
+        {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                string cartId;
+
+                if (userId != null)
+                {
+                    cartId = $"user_{userId}";
+                }
+                else
+                {
+                    cartId = HttpContext.Session.GetString("CartId");
+                    if (string.IsNullOrEmpty(cartId) || !cartId.StartsWith("session_"))
+                    {
+                        return Json(new { success = false, message = "Корзина не найдена" });
+                    }
+                }
+
+                var cartItems = await _context.CartItems
+                    .Where(ci => ci.CartId == cartId)
+                    .ToListAsync();
+
+                _context.CartItems.RemoveRange(cartItems);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error clearing cart");
+                return StatusCode(500, new { success = false, message = "Произошла ошибка при очистке корзины" });
+            }
+        }
+
+        public async Task ClearCartItemsAsync(string cartId)
+        {
+            var items = await _context.CartItems
+                .Where(ci => ci.CartId == cartId)
+                .ToListAsync();
+            _context.CartItems.RemoveRange(items);
+            await _context.SaveChangesAsync();
         }
     }
 } 
