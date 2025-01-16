@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "RmI61wBlGQyY6A0Cyoa2THCuTVZchqPSmFqV4f/Q/bg=",
+  "Hash": "AsoSvb+P65BK/YYzkrm8dw3geYgPQd8SmPilGCuKx/c=",
   "Source": "hazinDNS_v2",
   "BasePath": "_content/hazinDNS_v2",
   "Mode": "Default",
@@ -164,12 +164,12 @@
       "OriginalItemSpec": "D:\\repos\\hazinDNS_v2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Identity": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-mnkxfiexmg.gz",
+      "Identity": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-ag4mfaw0r3.gz",
       "SourceId": "hazinDNS_v2",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/hazinDNS_v2",
-      "RelativePath": "css/site#[.{fingerprint=mnkxfiexmg}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=ag4mfaw0r3}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -178,8 +178,8 @@
       "RelatedAsset": "D:\\repos\\hazinDNS_v2\\wwwroot\\css\\site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "3zq6wvzmku",
-      "Integrity": "8YXY4d6LcceL77Ns6d4lwUA+9vFh7pWfiFHktnqBcvg=",
+      "Fingerprint": "a7evvbt22o",
+      "Integrity": "WstmTFa+QyWCNmXTd5iuLhKY0p+wVUzHPLbqmeJhfig=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\repos\\hazinDNS_v2\\wwwroot\\css\\site.css"
@@ -479,12 +479,12 @@
       "OriginalItemSpec": "D:\\repos\\hazinDNS_v2\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Identity": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\eplncikvyd-1dblnc5miy.gz",
+      "Identity": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\eplncikvyd-fzlp9ajbfq.gz",
       "SourceId": "hazinDNS_v2",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/hazinDNS_v2",
-      "RelativePath": "js/site#[.{fingerprint=1dblnc5miy}]?.js.gz",
+      "RelativePath": "js/site#[.{fingerprint=fzlp9ajbfq}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -493,8 +493,8 @@
       "RelatedAsset": "D:\\repos\\hazinDNS_v2\\wwwroot\\js\\site.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "ie2w5smrde",
-      "Integrity": "1vatx0bLb0LDwl4b3I8jlPRBGmTH+mCRnsqE7KduBQ4=",
+      "Fingerprint": "nr39wtppqw",
+      "Integrity": "U/8lbpobhYI/vrhGjGA9g2v+BREXddN2bZIduac6EtY=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\repos\\hazinDNS_v2\\wwwroot\\js\\site.js"
@@ -1417,8 +1417,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "mnkxfiexmg",
-      "Integrity": "LgLpRjjKLTbexpNQnychvg2XAee2hxXHTqxIUBXG5jc=",
+      "Fingerprint": "ag4mfaw0r3",
+      "Integrity": "CpeT4nmp5G9c/i8zETWonf4124/Z7DAKoFLvHIFYqqg=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -1669,8 +1669,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "1dblnc5miy",
-      "Integrity": "xSOrHZW4M89qr61AD2fNupadfExmmh02VnZUq6EMEJU=",
+      "Fingerprint": "fzlp9ajbfq",
+      "Integrity": "izxV4Ama5sIbWuBRj+42vXQZlwXZ5UKbJPvZBia0oCQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
@@ -2938,13 +2938,13 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/site.css",
-      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-mnkxfiexmg.gz",
+      "Route": "css/site.ag4mfaw0r3.css",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-ag4mfaw0r3.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001597444089"
+          "Quality": "0.001353179973"
         }
       ],
       "ResponseHeaders": [
@@ -2954,19 +2954,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "625"
+          "Value": "738"
         },
         {
           "Name": "ETag",
-          "Value": "\"8YXY4d6LcceL77Ns6d4lwUA+9vFh7pWfiFHktnqBcvg=\""
+          "Value": "\"WstmTFa+QyWCNmXTd5iuLhKY0p+wVUzHPLbqmeJhfig=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 16 Jan 2025 23:19:56 GMT"
+          "Value": "Thu, 16 Jan 2025 23:35:56 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "no-cache"
+          "Value": "max-age=31536000, immutable"
         },
         {
           "Name": "Content-Encoding",
@@ -2982,18 +2982,26 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"LgLpRjjKLTbexpNQnychvg2XAee2hxXHTqxIUBXG5jc=\""
+          "Value": "W/\"CpeT4nmp5G9c/i8zETWonf4124/Z7DAKoFLvHIFYqqg=\""
         }
       ],
       "EndpointProperties": [
         {
+          "Name": "fingerprint",
+          "Value": "ag4mfaw0r3"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
           "Name": "integrity",
-          "Value": "sha256-LgLpRjjKLTbexpNQnychvg2XAee2hxXHTqxIUBXG5jc="
+          "Value": "sha256-CpeT4nmp5G9c/i8zETWonf4124/Z7DAKoFLvHIFYqqg="
         }
       ]
     },
     {
-      "Route": "css/site.css",
+      "Route": "css/site.ag4mfaw0r3.css",
       "AssetFile": "D:\\repos\\hazinDNS_v2\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3003,7 +3011,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1489"
+          "Value": "1916"
         },
         {
           "Name": "Content-Type",
@@ -3011,121 +3019,21 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"LgLpRjjKLTbexpNQnychvg2XAee2hxXHTqxIUBXG5jc=\""
+          "Value": "\"CpeT4nmp5G9c/i8zETWonf4124/Z7DAKoFLvHIFYqqg=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 16 Jan 2025 23:19:56 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-LgLpRjjKLTbexpNQnychvg2XAee2hxXHTqxIUBXG5jc="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css.gz",
-      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-mnkxfiexmg.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "625"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"8YXY4d6LcceL77Ns6d4lwUA+9vFh7pWfiFHktnqBcvg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 16 Jan 2025 23:19:56 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-8YXY4d6LcceL77Ns6d4lwUA+9vFh7pWfiFHktnqBcvg="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.mnkxfiexmg.css",
-      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-mnkxfiexmg.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.001597444089"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "625"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"8YXY4d6LcceL77Ns6d4lwUA+9vFh7pWfiFHktnqBcvg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 16 Jan 2025 23:19:56 GMT"
+          "Value": "Thu, 16 Jan 2025 23:35:56 GMT"
         },
         {
           "Name": "Cache-Control",
           "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"LgLpRjjKLTbexpNQnychvg2XAee2hxXHTqxIUBXG5jc=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "mnkxfiexmg"
+          "Value": "ag4mfaw0r3"
         },
         {
           "Name": "label",
@@ -3133,13 +3041,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-LgLpRjjKLTbexpNQnychvg2XAee2hxXHTqxIUBXG5jc="
+          "Value": "sha256-CpeT4nmp5G9c/i8zETWonf4124/Z7DAKoFLvHIFYqqg="
         }
       ]
     },
     {
-      "Route": "css/site.mnkxfiexmg.css",
-      "AssetFile": "D:\\repos\\hazinDNS_v2\\wwwroot\\css\\site.css",
+      "Route": "css/site.ag4mfaw0r3.css.gz",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-ag4mfaw0r3.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3148,7 +3056,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1489"
+          "Value": "738"
         },
         {
           "Name": "Content-Type",
@@ -3156,56 +3064,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"LgLpRjjKLTbexpNQnychvg2XAee2hxXHTqxIUBXG5jc=\""
+          "Value": "\"WstmTFa+QyWCNmXTd5iuLhKY0p+wVUzHPLbqmeJhfig=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 16 Jan 2025 23:19:56 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "mnkxfiexmg"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-LgLpRjjKLTbexpNQnychvg2XAee2hxXHTqxIUBXG5jc="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.mnkxfiexmg.css.gz",
-      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-mnkxfiexmg.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "625"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"8YXY4d6LcceL77Ns6d4lwUA+9vFh7pWfiFHktnqBcvg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 16 Jan 2025 23:19:56 GMT"
+          "Value": "Thu, 16 Jan 2025 23:35:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3223,7 +3086,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "mnkxfiexmg"
+          "Value": "ag4mfaw0r3"
         },
         {
           "Name": "label",
@@ -3231,7 +3094,144 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-8YXY4d6LcceL77Ns6d4lwUA+9vFh7pWfiFHktnqBcvg="
+          "Value": "sha256-WstmTFa+QyWCNmXTd5iuLhKY0p+wVUzHPLbqmeJhfig="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-ag4mfaw0r3.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001353179973"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "738"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"WstmTFa+QyWCNmXTd5iuLhKY0p+wVUzHPLbqmeJhfig=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 16 Jan 2025 23:35:56 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"CpeT4nmp5G9c/i8zETWonf4124/Z7DAKoFLvHIFYqqg=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-CpeT4nmp5G9c/i8zETWonf4124/Z7DAKoFLvHIFYqqg="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1916"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"CpeT4nmp5G9c/i8zETWonf4124/Z7DAKoFLvHIFYqqg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 16 Jan 2025 23:35:56 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-CpeT4nmp5G9c/i8zETWonf4124/Z7DAKoFLvHIFYqqg="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css.gz",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-ag4mfaw0r3.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "738"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"WstmTFa+QyWCNmXTd5iuLhKY0p+wVUzHPLbqmeJhfig=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 16 Jan 2025 23:35:56 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-WstmTFa+QyWCNmXTd5iuLhKY0p+wVUzHPLbqmeJhfig="
         }
       ]
     },
@@ -4950,13 +4950,13 @@
       ]
     },
     {
-      "Route": "js/site.1dblnc5miy.js",
-      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\eplncikvyd-1dblnc5miy.gz",
+      "Route": "js/site.fzlp9ajbfq.js",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\eplncikvyd-fzlp9ajbfq.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001303780965"
+          "Quality": "0.000906618314"
         }
       ],
       "ResponseHeaders": [
@@ -4966,15 +4966,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "766"
+          "Value": "1102"
         },
         {
           "Name": "ETag",
-          "Value": "\"1vatx0bLb0LDwl4b3I8jlPRBGmTH+mCRnsqE7KduBQ4=\""
+          "Value": "\"U/8lbpobhYI/vrhGjGA9g2v+BREXddN2bZIduac6EtY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 16 Jan 2025 23:19:52 GMT"
+          "Value": "Thu, 16 Jan 2025 23:28:52 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4994,13 +4994,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"xSOrHZW4M89qr61AD2fNupadfExmmh02VnZUq6EMEJU=\""
+          "Value": "W/\"izxV4Ama5sIbWuBRj+42vXQZlwXZ5UKbJPvZBia0oCQ=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1dblnc5miy"
+          "Value": "fzlp9ajbfq"
         },
         {
           "Name": "label",
@@ -5008,12 +5008,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-xSOrHZW4M89qr61AD2fNupadfExmmh02VnZUq6EMEJU="
+          "Value": "sha256-izxV4Ama5sIbWuBRj+42vXQZlwXZ5UKbJPvZBia0oCQ="
         }
       ]
     },
     {
-      "Route": "js/site.1dblnc5miy.js",
+      "Route": "js/site.fzlp9ajbfq.js",
       "AssetFile": "D:\\repos\\hazinDNS_v2\\wwwroot\\js\\site.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -5023,7 +5023,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1403"
+          "Value": "2291"
         },
         {
           "Name": "Content-Type",
@@ -5031,11 +5031,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"xSOrHZW4M89qr61AD2fNupadfExmmh02VnZUq6EMEJU=\""
+          "Value": "\"izxV4Ama5sIbWuBRj+42vXQZlwXZ5UKbJPvZBia0oCQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 16 Jan 2025 23:19:52 GMT"
+          "Value": "Thu, 16 Jan 2025 23:28:52 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5045,7 +5045,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1dblnc5miy"
+          "Value": "fzlp9ajbfq"
         },
         {
           "Name": "label",
@@ -5053,13 +5053,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-xSOrHZW4M89qr61AD2fNupadfExmmh02VnZUq6EMEJU="
+          "Value": "sha256-izxV4Ama5sIbWuBRj+42vXQZlwXZ5UKbJPvZBia0oCQ="
         }
       ]
     },
     {
-      "Route": "js/site.1dblnc5miy.js.gz",
-      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\eplncikvyd-1dblnc5miy.gz",
+      "Route": "js/site.fzlp9ajbfq.js.gz",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\eplncikvyd-fzlp9ajbfq.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5068,7 +5068,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "766"
+          "Value": "1102"
         },
         {
           "Name": "Content-Type",
@@ -5076,11 +5076,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"1vatx0bLb0LDwl4b3I8jlPRBGmTH+mCRnsqE7KduBQ4=\""
+          "Value": "\"U/8lbpobhYI/vrhGjGA9g2v+BREXddN2bZIduac6EtY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 16 Jan 2025 23:19:52 GMT"
+          "Value": "Thu, 16 Jan 2025 23:28:52 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5098,7 +5098,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1dblnc5miy"
+          "Value": "fzlp9ajbfq"
         },
         {
           "Name": "label",
@@ -5106,18 +5106,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-1vatx0bLb0LDwl4b3I8jlPRBGmTH+mCRnsqE7KduBQ4="
+          "Value": "sha256-U/8lbpobhYI/vrhGjGA9g2v+BREXddN2bZIduac6EtY="
         }
       ]
     },
     {
       "Route": "js/site.js",
-      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\eplncikvyd-1dblnc5miy.gz",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\eplncikvyd-fzlp9ajbfq.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001303780965"
+          "Quality": "0.000906618314"
         }
       ],
       "ResponseHeaders": [
@@ -5127,15 +5127,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "766"
+          "Value": "1102"
         },
         {
           "Name": "ETag",
-          "Value": "\"1vatx0bLb0LDwl4b3I8jlPRBGmTH+mCRnsqE7KduBQ4=\""
+          "Value": "\"U/8lbpobhYI/vrhGjGA9g2v+BREXddN2bZIduac6EtY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 16 Jan 2025 23:19:52 GMT"
+          "Value": "Thu, 16 Jan 2025 23:28:52 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5155,13 +5155,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"xSOrHZW4M89qr61AD2fNupadfExmmh02VnZUq6EMEJU=\""
+          "Value": "W/\"izxV4Ama5sIbWuBRj+42vXQZlwXZ5UKbJPvZBia0oCQ=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-xSOrHZW4M89qr61AD2fNupadfExmmh02VnZUq6EMEJU="
+          "Value": "sha256-izxV4Ama5sIbWuBRj+42vXQZlwXZ5UKbJPvZBia0oCQ="
         }
       ]
     },
@@ -5176,7 +5176,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1403"
+          "Value": "2291"
         },
         {
           "Name": "Content-Type",
@@ -5184,11 +5184,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"xSOrHZW4M89qr61AD2fNupadfExmmh02VnZUq6EMEJU=\""
+          "Value": "\"izxV4Ama5sIbWuBRj+42vXQZlwXZ5UKbJPvZBia0oCQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 16 Jan 2025 23:19:52 GMT"
+          "Value": "Thu, 16 Jan 2025 23:28:52 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5198,13 +5198,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-xSOrHZW4M89qr61AD2fNupadfExmmh02VnZUq6EMEJU="
+          "Value": "sha256-izxV4Ama5sIbWuBRj+42vXQZlwXZ5UKbJPvZBia0oCQ="
         }
       ]
     },
     {
       "Route": "js/site.js.gz",
-      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\eplncikvyd-1dblnc5miy.gz",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\eplncikvyd-fzlp9ajbfq.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5213,7 +5213,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "766"
+          "Value": "1102"
         },
         {
           "Name": "Content-Type",
@@ -5221,11 +5221,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"1vatx0bLb0LDwl4b3I8jlPRBGmTH+mCRnsqE7KduBQ4=\""
+          "Value": "\"U/8lbpobhYI/vrhGjGA9g2v+BREXddN2bZIduac6EtY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 16 Jan 2025 23:19:52 GMT"
+          "Value": "Thu, 16 Jan 2025 23:28:52 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5243,7 +5243,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-1vatx0bLb0LDwl4b3I8jlPRBGmTH+mCRnsqE7KduBQ4="
+          "Value": "sha256-U/8lbpobhYI/vrhGjGA9g2v+BREXddN2bZIduac6EtY="
         }
       ]
     },

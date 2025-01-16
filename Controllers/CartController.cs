@@ -237,5 +237,31 @@ namespace hazinDNS_v2.Controllers
             _context.CartItems.RemoveRange(items);
             await _context.SaveChangesAsync();
         }
+
+        [HttpPost("UpdateQuantity")]
+        public async Task<IActionResult> UpdateQuantity([FromBody] UpdateQuantityModel model)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            
+            if (userId != null)
+            {
+                var cartItem = await _context.CartItems
+                    .FirstOrDefaultAsync(ci => ci.CartId == $"user_{userId}" && ci.ProductId == model.ProductId);
+
+                if (cartItem != null)
+                {
+                    cartItem.Quantity = Math.Max(1, cartItem.Quantity + model.Delta);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            return Json(new { success = true });
+        }
+
+        public class UpdateQuantityModel
+        {
+            public int ProductId { get; set; }
+            public int Delta { get; set; }
+        }
     }
 } 

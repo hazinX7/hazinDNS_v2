@@ -28,3 +28,30 @@ function logout() {
         window.location.href = '/Home/Login';
     }
 }
+
+function updateQuantity(productId, delta) {
+    const token = localStorage.getItem('jwt_token');
+    fetch('/Cart/UpdateQuantity', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': token ? `Bearer ${token}` : ''
+        },
+        body: JSON.stringify({ 
+            productId: productId, 
+            delta: delta 
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Обновляем страницу для отображения новых данных
+            window.location.reload();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ошибка при обновлении количества товара');
+    });
+}
