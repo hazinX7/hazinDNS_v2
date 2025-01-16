@@ -250,7 +250,16 @@ namespace hazinDNS_v2.Controllers
 
                 if (cartItem != null)
                 {
-                    cartItem.Quantity = Math.Max(1, cartItem.Quantity + model.Delta);
+                    var newQuantity = cartItem.Quantity + model.Delta;
+                    
+                    if (newQuantity <= 0)
+                    {
+                        _context.CartItems.Remove(cartItem);
+                    }
+                    else
+                    {
+                        cartItem.Quantity = newQuantity;
+                    }
                     await _context.SaveChangesAsync();
                 }
             }
