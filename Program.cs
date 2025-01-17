@@ -21,10 +21,13 @@ namespace hazinDNS_v2
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.WebHost.UseUrls("http://0.0.0.0:5179");
+            builder.WebHost.UseUrls("http://+:8080");
             builder.WebHost.ConfigureKestrel(serverOptions =>
             {
-                serverOptions.ListenAnyIP(5179);
+                serverOptions.ListenAnyIP(8080, options => 
+                {
+                    options.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1;
+                });
             });
 
             builder.Services.AddDistributedMemoryCache();
