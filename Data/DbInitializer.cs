@@ -6,7 +6,7 @@ namespace hazinDNS_v2.Data
     {
         public static void ResetAdminBalance(ApplicationDbContext context)
         {
-            var admin = context.Users.FirstOrDefault(u => u.UserName == "admin");
+            var admin = context.Users.FirstOrDefault(u => u.Username == "admin");
             if (admin != null)
             {
                 admin.Balance = 0;

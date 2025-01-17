@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using hazinDNS_v2.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace hazinDNS_v2.Controllers
 {
@@ -11,12 +10,10 @@ namespace hazinDNS_v2.Controllers
     public class ProfileController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
 
-        public ProfileController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public ProfileController(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
@@ -39,11 +36,11 @@ namespace hazinDNS_v2.Controllers
         [HttpPost]
         public async Task<IActionResult> ResetBalance()
         {
-            var user = await _userManager.FindByNameAsync("admin");
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == "admin");
             if (user != null)
             {
                 user.Balance = 0;
-                await _userManager.UpdateAsync(user);
+                await _context.SaveChangesAsync();
                 return Json(new { success = true });
             }
             return Json(new { success = false });

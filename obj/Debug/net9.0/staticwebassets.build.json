@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pD8yyQ78HfJxwnriLQRN6t45hM+FWZmOL9M2ngzC1Ns=",
+  "Hash": "dBOACDeKYGsF5kpcrXur1OiYd0nUA6uTqGyTl5PBzM8=",
   "Source": "hazinDNS_v2",
   "BasePath": "_content/hazinDNS_v2",
   "Mode": "Default",
@@ -164,12 +164,12 @@
       "OriginalItemSpec": "D:\\repos\\hazinDNS_v2\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Identity": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-fy2m78u72m.gz",
+      "Identity": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-npu7g2rtp8.gz",
       "SourceId": "hazinDNS_v2",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/hazinDNS_v2",
-      "RelativePath": "css/site#[.{fingerprint=fy2m78u72m}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=npu7g2rtp8}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -178,8 +178,8 @@
       "RelatedAsset": "D:\\repos\\hazinDNS_v2\\wwwroot\\css\\site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "sgtafe04oq",
-      "Integrity": "VOVZ3trO8tHl592dTMSsjC8g+ApD8ThMA3Rgb6YbMSM=",
+      "Fingerprint": "weurxd6qpb",
+      "Integrity": "uMfN7DGs0pRdKH9ImsZiGmwIVprUjziCteC2pNuZJNI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\repos\\hazinDNS_v2\\wwwroot\\css\\site.css"
@@ -1417,8 +1417,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "fy2m78u72m",
-      "Integrity": "d99ZHb381wZUfpxmZbOy0MfJSXt53DNJXM/9ZL9sljc=",
+      "Fingerprint": "npu7g2rtp8",
+      "Integrity": "xSDuw700aZbvGD+qf5t3MqqSAVhivJKTGjiyLDl2d0Y=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -2939,12 +2939,12 @@
   "Endpoints": [
     {
       "Route": "css/site.css",
-      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-fy2m78u72m.gz",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-npu7g2rtp8.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000968054211"
+          "Quality": "0.000874125874"
         }
       ],
       "ResponseHeaders": [
@@ -2954,15 +2954,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1032"
+          "Value": "1143"
         },
         {
           "Name": "ETag",
-          "Value": "\"VOVZ3trO8tHl592dTMSsjC8g+ApD8ThMA3Rgb6YbMSM=\""
+          "Value": "\"uMfN7DGs0pRdKH9ImsZiGmwIVprUjziCteC2pNuZJNI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 17 Jan 2025 00:24:27 GMT"
+          "Value": "Fri, 17 Jan 2025 00:46:19 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2982,13 +2982,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"d99ZHb381wZUfpxmZbOy0MfJSXt53DNJXM/9ZL9sljc=\""
+          "Value": "W/\"xSDuw700aZbvGD+qf5t3MqqSAVhivJKTGjiyLDl2d0Y=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-d99ZHb381wZUfpxmZbOy0MfJSXt53DNJXM/9ZL9sljc="
+          "Value": "sha256-xSDuw700aZbvGD+qf5t3MqqSAVhivJKTGjiyLDl2d0Y="
         }
       ]
     },
@@ -3003,7 +3003,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3137"
+          "Value": "3577"
         },
         {
           "Name": "Content-Type",
@@ -3011,11 +3011,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"d99ZHb381wZUfpxmZbOy0MfJSXt53DNJXM/9ZL9sljc=\""
+          "Value": "\"xSDuw700aZbvGD+qf5t3MqqSAVhivJKTGjiyLDl2d0Y=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 17 Jan 2025 00:24:27 GMT"
+          "Value": "Fri, 17 Jan 2025 00:46:19 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3025,13 +3025,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-d99ZHb381wZUfpxmZbOy0MfJSXt53DNJXM/9ZL9sljc="
+          "Value": "sha256-xSDuw700aZbvGD+qf5t3MqqSAVhivJKTGjiyLDl2d0Y="
         }
       ]
     },
     {
       "Route": "css/site.css.gz",
-      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-fy2m78u72m.gz",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-npu7g2rtp8.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3040,7 +3040,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1032"
+          "Value": "1143"
         },
         {
           "Name": "Content-Type",
@@ -3048,11 +3048,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"VOVZ3trO8tHl592dTMSsjC8g+ApD8ThMA3Rgb6YbMSM=\""
+          "Value": "\"uMfN7DGs0pRdKH9ImsZiGmwIVprUjziCteC2pNuZJNI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 17 Jan 2025 00:24:27 GMT"
+          "Value": "Fri, 17 Jan 2025 00:46:19 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3070,18 +3070,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-VOVZ3trO8tHl592dTMSsjC8g+ApD8ThMA3Rgb6YbMSM="
+          "Value": "sha256-uMfN7DGs0pRdKH9ImsZiGmwIVprUjziCteC2pNuZJNI="
         }
       ]
     },
     {
-      "Route": "css/site.fy2m78u72m.css",
-      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-fy2m78u72m.gz",
+      "Route": "css/site.npu7g2rtp8.css",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-npu7g2rtp8.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000968054211"
+          "Quality": "0.000874125874"
         }
       ],
       "ResponseHeaders": [
@@ -3091,15 +3091,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1032"
+          "Value": "1143"
         },
         {
           "Name": "ETag",
-          "Value": "\"VOVZ3trO8tHl592dTMSsjC8g+ApD8ThMA3Rgb6YbMSM=\""
+          "Value": "\"uMfN7DGs0pRdKH9ImsZiGmwIVprUjziCteC2pNuZJNI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 17 Jan 2025 00:24:27 GMT"
+          "Value": "Fri, 17 Jan 2025 00:46:19 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3119,13 +3119,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"d99ZHb381wZUfpxmZbOy0MfJSXt53DNJXM/9ZL9sljc=\""
+          "Value": "W/\"xSDuw700aZbvGD+qf5t3MqqSAVhivJKTGjiyLDl2d0Y=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fy2m78u72m"
+          "Value": "npu7g2rtp8"
         },
         {
           "Name": "label",
@@ -3133,12 +3133,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-d99ZHb381wZUfpxmZbOy0MfJSXt53DNJXM/9ZL9sljc="
+          "Value": "sha256-xSDuw700aZbvGD+qf5t3MqqSAVhivJKTGjiyLDl2d0Y="
         }
       ]
     },
     {
-      "Route": "css/site.fy2m78u72m.css",
+      "Route": "css/site.npu7g2rtp8.css",
       "AssetFile": "D:\\repos\\hazinDNS_v2\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3148,7 +3148,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "3137"
+          "Value": "3577"
         },
         {
           "Name": "Content-Type",
@@ -3156,11 +3156,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"d99ZHb381wZUfpxmZbOy0MfJSXt53DNJXM/9ZL9sljc=\""
+          "Value": "\"xSDuw700aZbvGD+qf5t3MqqSAVhivJKTGjiyLDl2d0Y=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 17 Jan 2025 00:24:27 GMT"
+          "Value": "Fri, 17 Jan 2025 00:46:19 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3170,7 +3170,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fy2m78u72m"
+          "Value": "npu7g2rtp8"
         },
         {
           "Name": "label",
@@ -3178,13 +3178,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-d99ZHb381wZUfpxmZbOy0MfJSXt53DNJXM/9ZL9sljc="
+          "Value": "sha256-xSDuw700aZbvGD+qf5t3MqqSAVhivJKTGjiyLDl2d0Y="
         }
       ]
     },
     {
-      "Route": "css/site.fy2m78u72m.css.gz",
-      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-fy2m78u72m.gz",
+      "Route": "css/site.npu7g2rtp8.css.gz",
+      "AssetFile": "D:\\repos\\hazinDNS_v2\\obj\\Debug\\net9.0\\compressed\\5ugpzc3j6o-npu7g2rtp8.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3193,7 +3193,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1032"
+          "Value": "1143"
         },
         {
           "Name": "Content-Type",
@@ -3201,11 +3201,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"VOVZ3trO8tHl592dTMSsjC8g+ApD8ThMA3Rgb6YbMSM=\""
+          "Value": "\"uMfN7DGs0pRdKH9ImsZiGmwIVprUjziCteC2pNuZJNI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 17 Jan 2025 00:24:27 GMT"
+          "Value": "Fri, 17 Jan 2025 00:46:19 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3223,7 +3223,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "fy2m78u72m"
+          "Value": "npu7g2rtp8"
         },
         {
           "Name": "label",
@@ -3231,7 +3231,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-VOVZ3trO8tHl592dTMSsjC8g+ApD8ThMA3Rgb6YbMSM="
+          "Value": "sha256-uMfN7DGs0pRdKH9ImsZiGmwIVprUjziCteC2pNuZJNI="
         }
       ]
     },
