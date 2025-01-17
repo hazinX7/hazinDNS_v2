@@ -21,6 +21,8 @@ namespace hazinDNS_v2
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.WebHost.UseUrls("http://localhost:5179");
+
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
             {
@@ -41,6 +43,7 @@ namespace hazinDNS_v2
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<CartController>();
+            builder.Services.AddScoped<WishlistController>();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -76,6 +79,11 @@ namespace hazinDNS_v2
                 name: "profile",
                 pattern: "Profile",
                 defaults: new { controller = "Account", action = "Profile" });
+
+            app.MapControllerRoute(
+                name: "wishlist",
+                pattern: "Wishlist",
+                defaults: new { controller = "Wishlist", action = "Index" });
 
             app.MapControllerRoute(
                 name: "default",
