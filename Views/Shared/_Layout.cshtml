@@ -144,6 +144,11 @@
                     <ul class="navbar-nav">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Wishlist" asp-action="Index">
+                                    <i class="bi bi-heart"></i> Список желаемого
+                                </a>
+                            </li>
                             <li class="nav-item" id="balanceItem">
                                 <a class="nav-link text-dark" href="/Balance">
                                     <i class="bi bi-wallet2"></i> Баланс: <span id="userBalance">0</span> ₽
@@ -173,9 +178,6 @@
                                 </a>
                             </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Wishlist" asp-action="Index">Список желаемого</a>
-                        </li>
                     </ul>
                 </div>
             </div>
