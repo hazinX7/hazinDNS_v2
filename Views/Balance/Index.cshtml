@@ -12,27 +12,63 @@
                         <label>Текущий баланс</label>
                         <h4 id="currentBalance" class="text-primary">0 ₽</h4>
                     </div>
-                    <form id="balanceForm">
-                        <div class="mb-3">
-                            <label for="cardNumber" class="form-label">Номер карты</label>
-                            <input type="text" class="form-control" id="cardNumber" maxlength="19" placeholder="0000 0000 0000 0000" required>
+
+                    <!-- Вкладки -->
+                    <ul class="nav nav-tabs mb-4" id="paymentTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="card-tab" data-bs-toggle="tab" data-bs-target="#card" type="button" role="tab">
+                                <i class="bi bi-credit-card"></i> Банковская карта
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="sbp-tab" data-bs-toggle="tab" data-bs-target="#sbp" type="button" role="tab">
+                                <i class="bi bi-phone"></i> СБП
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!-- Содержимое вкладок -->
+                    <div class="tab-content" id="paymentTabsContent">
+                        <!-- Вкладка оплаты картой -->
+                        <div class="tab-pane fade show active" id="card" role="tabpanel">
+                            <form id="balanceForm">
+                                <div class="mb-3">
+                                    <label for="cardNumber" class="form-label">Номер карты</label>
+                                    <input type="text" class="form-control" id="cardNumber" maxlength="19" placeholder="0000 0000 0000 0000" required>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <label for="expiryDate" class="form-label">Срок действия (ММ/ГГ)</label>
+                                        <input type="text" class="form-control" id="expiryDate" maxlength="5" placeholder="MM/YY" required>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="cvv" class="form-label">CVV</label>
+                                        <input type="password" class="form-control" id="cvv" maxlength="3" placeholder="***" required>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="amount" class="form-label">Сумма пополнения</label>
+                                    <input type="number" class="form-control" id="amount" min="1" max="750000" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Пополнить</button>
+                            </form>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-6">
-                                <label for="expiryDate" class="form-label">Срок действия (ММ/ГГ)</label>
-                                <input type="text" class="form-control" id="expiryDate" maxlength="5" placeholder="MM/YY" required>
-                            </div>
-                            <div class="col-6">
-                                <label for="cvv" class="form-label">CVV</label>
-                                <input type="password" class="form-control" id="cvv" maxlength="3" placeholder="***" required>
-                            </div>
+
+                        <!-- Вкладка СБП -->
+                        <div class="tab-pane fade" id="sbp" role="tabpanel">
+                            <form id="sbpForm">
+                                <div class="mb-4">
+                                    <label for="sbpAmount" class="form-label">Сумма пополнения</label>
+                                    <input type="number" class="form-control" id="sbpAmount" min="1" max="750000" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="phoneNumber" class="form-label">Номер телефона</label>
+                                    <input type="tel" class="form-control" id="phoneNumber" placeholder="+7 (___) ___-__-__" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Оплатить через СБП</button>
+                            </form>
                         </div>
-                        <div class="mb-4">
-                            <label for="amount" class="form-label">Сумма пополнения</label>
-                            <input type="number" class="form-control" id="amount" min="1" max="750000" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Пополнить</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -131,5 +167,37 @@
 
         // Загружаем баланс при загрузке страницы
         loadCurrentBalance();
+
+        // Форматирование номера телефона
+        document.getElementById('phoneNumber').addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                if (value[0] === '7' || value[0] === '8') {
+                    value = '7' + value.slice(1);
+                }
+                let formattedValue = '';
+                if (value.length > 0) formattedValue += '+7 ';
+                if (value.length > 1) formattedValue += '(' + value.slice(1, 4);
+                if (value.length > 4) formattedValue += ') ' + value.slice(4, 7);
+                if (value.length > 7) formattedValue += '-' + value.slice(7, 9);
+                if (value.length > 9) formattedValue += '-' + value.slice(9, 11);
+                this.value = formattedValue;
+            }
+        });
+
+        // Обработка формы СБП
+        document.getElementById('sbpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const amount = parseFloat(document.getElementById('sbpAmount').value);
+            const phone = document.getElementById('phoneNumber').value.replace(/\D/g, '');
+
+            if (amount > 750000) {
+                toastr.warning('Пожалуйста, выберите значение не более 750000.');
+                return;
+            }
+
+            // Здесь будет логика обработки СБП платежа
+            toastr.info('Функция оплаты через СБП находится в разработке');
+        });
     </script>
 } 
