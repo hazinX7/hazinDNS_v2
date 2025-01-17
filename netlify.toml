@@ -1,0 +1,9 @@
+[build]
+    command = "dotnet publish -c Release -o publish"
+    publish = "publish"
+    functions = "netlify/functions"
+
+[[redirects]]
+    from = "/*"
+    to = "/.netlify/functions/server"
+    status = 200 
