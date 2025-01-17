@@ -101,44 +101,28 @@
         }
 
         function addBalance() {
-            const amount = document.getElementById('amount').value;
-            if (!amount || amount <= 0) {
-                alert('Введите корректную сумму');
-                return;
-            }
-
-            // Проверка заполнения данных карты на активной вкладке
-            if (document.querySelector('#card.active')) {
-                const cardNumber = document.getElementById('cardNumber').value;
-                const cardExpiry = document.getElementById('cardExpiry').value;
-                const cardCvv = document.getElementById('cardCvv').value;
-
-                if (!cardNumber || !cardExpiry || !cardCvv) {
-                    alert('Заполните все данные карты');
-                    return;
-                }
-            }
-
+            var amount = document.getElementById('amount').value;
+            
             fetch('/Balance/AddBalance', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ amount: parseFloat(amount) })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Баланс успешно пополнен');
-                    updateBalance();
+                    toastr.success('Баланс успешно пополнен');
+                    updateUserBalance();
                     document.getElementById('amount').value = '';
-                    // Очистка полей карты
-                    if (document.getElementById('cardNumber')) {
-                        document.getElementById('cardNumber').value = '';
-                        document.getElementById('cardExpiry').value = '';
-                        document.getElementById('cardCvv').value = '';
-                    }
+                } else {
+                    toastr.error(data.message || 'Произошла ошибка при пополнении баланса');
                 }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                toastr.error('Произошла ошибка при пополнении баланса');
             });
         }
 

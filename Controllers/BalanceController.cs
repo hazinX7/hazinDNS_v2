@@ -24,22 +24,17 @@ namespace hazinDNS_v2.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBalance([FromBody] AddBalanceModel model)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null)
-            {
-                return Unauthorized();
-            }
-
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _context.Users.FindAsync(int.Parse(userId));
-            if (user == null)
+
+            if (user != null)
             {
-                return NotFound();
+                user.Balance += model.Amount;
+                await _context.SaveChangesAsync();
+                return Json(new { success = true, message = "Баланс успешно пополнен" });
             }
 
-            user.Balance += model.Amount;
-            await _context.SaveChangesAsync();
-
-            return Json(new { success = true, newBalance = user.Balance });
+            return Json(new { success = false, message = "Ошибка при пополнении баланса" });
         }
 
         [HttpGet]

@@ -118,7 +118,11 @@ namespace hazinDNS_v2.Controllers
                     await transaction.CommitAsync();
 
                     _logger.LogInformation($"Order {order.Id} created successfully");
-                    return Json(new { success = true, orderId = order.Id });
+                    return Json(new { 
+                        success = true, 
+                        message = "Заказ успешно оформлен!",
+                        orderId = order.Id
+                    });
                 }
                 catch (Exception ex)
                 {

@@ -128,5 +128,52 @@
                 }
             });
         }
+
+        function createOrder() {
+            // ... существующий код сбора данных заказа ...
+
+            fetch('/Order/Create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: 'Заказ оформлен!',
+                        text: 'Ваш заказ успешно оформлен и принят в обработку',
+                        icon: 'success',
+                        confirmButtonText: 'Отлично',
+                        confirmButtonColor: '#28a745',
+                        showConfirmButton: true,
+                        timer: 3000,
+                        timerProgressBar: true
+                    }).then((result) => {
+                        window.location.href = '/Order/History';  // или другая страница после оформления заказа
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Ошибка',
+                        text: data.message || 'Произошла ошибка при оформлении заказа',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#dc3545'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'Ошибка',
+                    text: 'Произошла ошибка при оформлении заказа',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#dc3545'
+                });
+            });
+        }
     </script>
 }

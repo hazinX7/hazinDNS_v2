@@ -51,21 +51,37 @@
 @section Scripts {
     <script>
         function removeFromWishlist(productId) {
-            if (confirm('Вы уверены, что хотите удалить этот товар из списка желаемого?')) {
-                fetch('/Wishlist/RemoveFromWishlist', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(productId)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                    }
-                });
-            }
+            Swal.fire({
+                title: 'Удаление товара',
+                text: 'Вы действительно хотите удалить этот товар из списка желаемого?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Да',
+                cancelButtonText: 'Отмена',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/Wishlist/RemoveFromWishlist', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(productId)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            toastr.success('Товар успешно удален из списка желаемого');
+                            location.reload();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        toastr.error('Произошла ошибка при удалении товара');
+                    });
+                }
+            });
         }
     </script>
 } 

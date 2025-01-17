@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/hazinDNS_v2.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <style>
         .product-card {
             height: 100%;
@@ -101,6 +102,11 @@
         .btn-outline-primary.in-wishlist:hover i {
             color: white !important;
         }
+
+        #toast-container > div {
+            opacity: 1;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
     </style>
 </head>
 <body>
@@ -188,14 +194,27 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
+        // Конфигурация Toastr
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "timeOut": "3000"
+        };
+
         function updateUserBalance() {
             fetch('/Balance/GetBalance')
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('userBalance').textContent = data.balance.toLocaleString('ru-RU');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    toastr.error('Ошибка при обновлении баланса');
                 });
         }
 
@@ -215,10 +234,12 @@
                 }
             })
             .then(response => {
+                toastr.success('Вы успешно вышли из системы');
                 window.location.href = '/Home/Login';
             })
             .catch(error => {
                 console.error('Error during logout:', error);
+                toastr.error('Произошла ошибка при выходе из системы');
                 window.location.href = '/Home/Login';
             });
         }
@@ -254,7 +275,7 @@
             .then(response => {
                 console.log('Response status:', response.status);
                 if (response.status === 401) {
-                    alert('Необходима авторизация');
+                    toastr.error('Необходима авторизация');
                     window.location.href = '/Home/Login';
                     return;
                 }
@@ -265,59 +286,98 @@
                 console.log('Response data:', data);
                 if (data.success) {
                     updateCartCount();
-                    alert('Товар добавлен в корзину');
+                    toastr.success('Товар добавлен в корзину');
                     if (window.location.pathname === '/Cart' || window.location.pathname === '/Cart/Index') {
                         window.location.reload();
                     }
                 } else if (data.message) {
-                    alert(data.message);
+                    toastr.warning(data.message);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
+                toastr.error('Произошла ошибка при добавлении товара в корзину');
             });
         }
 
         function removeFromCart(productId) {
-            if (confirm('Вы уверены, что хотите удалить этот товар из корзины?')) {
-                fetch('/Cart/RemoveFromCart', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ productId: productId })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        window.location.reload();
-                    }
-                });
-            }
+            Swal.fire({
+                title: 'Удаление товара',
+                text: 'Вы действительно хотите удалить этот товар из корзины?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Да',
+                cancelButtonText: 'Отмена',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/Cart/RemoveFromCart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ productId: productId })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            toastr.success('Товар успешно удален из корзины');
+                            window.location.reload();
+                        }
+                        else {
+                            toastr.error('Не удалось удалить товар');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        toastr.error('Произошла ошибка при удалении товара');
+                    });
+                }
+            });
         }
 
         function clearCart() {
-            if (confirm('Вы уверены, что хотите очистить корзину?')) {
-                fetch('/Cart/ClearCart', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        window.location.reload();
-                    }
-                });
-            }
+            Swal.fire({
+                title: 'Очистка корзины',
+                text: 'Вы действительно хотите очистить корзину?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Да',
+                cancelButtonText: 'Отмена',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/Cart/ClearCart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            toastr.success('Корзина успешно очищена');
+                            window.location.reload();
+                        }
+                        else {
+                            toastr.error('Не удалось очистить корзину');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        toastr.error('Произошла ошибка при очистке корзины');
+                    });
+                }
+            });
         }
 
         function openCart() {
             fetch('/Cart')
                 .then(response => {
                     if (response.status === 401) {
-                        alert('Необходима авторизация');
+                        toastr.error('Необходима авторизация');
                         window.location.href = '/Home/Login';
                         return;
                     }
@@ -360,7 +420,7 @@
                 })
                 .then(response => {
                     if (response.status === 401) {
-                        alert('Необходима авторизация');
+                        toastr.error('Необходима авторизация');
                         window.location.href = '/Home/Login';
                         return;
                     }
@@ -371,11 +431,12 @@
                     if (data.success) {
                         button.classList.remove('in-wishlist');
                         button.querySelector('i').classList.remove('text-danger');
-                        alert('Товар удален из списка желаемого');
+                        toastr.success('Товар удален из списка желаемого');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                    toastr.error('Произошла ошибка при удалении товара');
                 });
                 return;
             }
@@ -390,7 +451,7 @@
             })
             .then(response => {
                 if (response.status === 401) {
-                    alert('Необходима авторизация');
+                    toastr.error('Необходима авторизация');
                     window.location.href = '/Home/Login';
                     return;
                 }
@@ -401,16 +462,18 @@
                 if (data.success) {
                     button.classList.add('in-wishlist');
                     button.querySelector('i').classList.add('text-danger');
-                    alert('Товар добавлен в список желаемого');
+                    toastr.success('Товар добавлен в список желаемого');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
+                toastr.error('Произошла ошибка при добавлении товара');
             });
         }
 
         // Вызываем проверку при загрузке страницы
         document.addEventListener('DOMContentLoaded', checkWishlistItems);
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
