@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "6thcHPzf60k=",
+  "dgSpecHash": "0MJ+wNfGWsE=",
   "success": true,
-  "projectFilePath": "D:\\repos\\hazinDNS_v2\\hazinDNS_v2.csproj",
+  "projectFilePath": "C:\\Users\\angry\\OneDrive\\Документы\\SHOP — копия\\hazinDNS_v2\\hazinDNS_v2.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\angry\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\angry\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\angry\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\9.0.1\\microsoft.aspnetcore.authentication.jwtbearer.9.0.1.nupkg.sha512",
     "C:\\Users\\angry\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
