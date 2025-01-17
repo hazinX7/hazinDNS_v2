@@ -17,4 +17,8 @@
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\_redirects" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+
 </Project>
