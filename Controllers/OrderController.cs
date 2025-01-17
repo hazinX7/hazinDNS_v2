@@ -135,6 +135,22 @@ namespace hazinDNS_v2.Controllers
                 return StatusCode(500, new { message = $"Неожиданная ошибка при создании заказа: {ex.Message}" });
             }
         }
+
+        [Authorize]
+        public async Task<IActionResult> History()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null) return Unauthorized();
+
+            var orders = await _context.Orders
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Product)
+                .Where(o => o.UserId == int.Parse(userId))
+                .OrderByDescending(o => o.OrderDate)
+                .ToListAsync();
+
+            return View(orders);
+        }
     }
 
     public class PlaceOrderModel

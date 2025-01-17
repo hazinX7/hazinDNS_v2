@@ -105,3 +105,21 @@ body {
     justify-content: center;
     border-radius: 4px;
 }
+
+.order-card {
+    transition: transform 0.2s;
+}
+
+.order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.badge {
+    padding: 0.5em 1em;
+    font-size: 0.875em;
+}
+
+.table-sm td {
+    vertical-align: middle;
+}
