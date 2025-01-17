@@ -100,7 +100,7 @@ namespace hazinDNS_v2
             {
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<ApplicationDbContext>();
-                DbInitializer.Initialize(context);
+                DbInitializer.UpdateProducts(context);
             }
 
             app.Run();

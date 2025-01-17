@@ -25,7 +25,7 @@ namespace hazinDNS_v2.Data
                     new User
                     {
                         Username = "admin",
-                        Password = "password",
+                        Password = "python",
                         Email = "admin@hazindns.com",
                         Role = "Admin"
                     },
@@ -116,12 +116,148 @@ namespace hazinDNS_v2.Data
                         ImageUrl = "/images/electrolux-oven.jpg",
                         Category = "Духовые шкафы",
                         InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "MSI Raider GE78 HX",
+                        Description = "Игровой ноутбук с RTX 4090, Intel Core i9-13980HX",
+                        Price = 399999M,
+                        ImageUrl = "/images/msi-raider-ge78.png",
+                        Category = "Ноутбуки",
+                        InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "ASUS ROG Strix G16",
+                        Description = "Игровой ноутбук с RTX 4080, Intel Core i9-13980H",
+                        Price = 289999M,
+                        ImageUrl = "/images/asus-rog-strix-g16.png",
+                        Category = "Ноутбуки",
+                        InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "Alienware Aurora R15",
+                        Description = "Игровой компьютер с RTX 4090, Intel Core i9-13900K",
+                        Price = 459999M,
+                        ImageUrl = "/images/alienware-aurora-r15.png",
+                        Category = "Компьютеры",
+                        InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "Bosch MFW3X10B",
+                        Description = "Мясорубка с производительностью 2 кг/мин",
+                        Price = 7999M,
+                        ImageUrl = "/images/bosch-grinder.png",
+                        Category = "Бытовая техника",
+                        InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "MSI MEG Aegis Ti5",
+                        Description = "Игровой компьютер с RTX 4080, Intel Core i7-13700K",
+                        Price = 349999M,
+                        ImageUrl = "/images/msi-meg-aegis-ti5.png",
+                        Category = "Компьютеры",
+                        InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "ASUS ROG Swift PG32UQX",
+                        Description = "4K Gaming Monitor, 32 дюйма, 144Hz, Mini LED",
+                        Price = 199999M,
+                        ImageUrl = "/images/asus-rog-swift-pg32uqx.png",
+                        Category = "Мониторы",
+                        InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "Samsung Odyssey Neo G9",
+                        Description = "49 дюймов, 5120x1440, 240Hz, Mini LED",
+                        Price = 249999M,
+                        ImageUrl = "/images/samsung-odyssey-neo-g9.png",
+                        Category = "Мониторы",
+                        InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "JBL PartyBox 710",
+                        Description = "Мощная портативная колонка с световыми эффектами",
+                        Price = 69999M,
+                        ImageUrl = "/images/jbl-partybox-710.png",
+                        Category = "Аудиотехника",
+                        InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "JBL Charge 5",
+                        Description = "Портативная водонепроницаемая колонка",
+                        Price = 12999M,
+                        ImageUrl = "/images/jbl-charge-5.png",
+                        Category = "Аудиотехника",
+                        InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "Samsung Galaxy Z Flip 5",
+                        Description = "Складной смартфон с 6.7\" Dynamic AMOLED 2X дисплеем, 8GB RAM, 256GB",
+                        Price = 89999M,
+                        ImageUrl = "/images/samsung-zflip5.png",
+                        Category = "Смартфоны",
+                        InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "Polaris PWK 1725CGLD",
+                        Description = "Электрический чайник с LED подсветкой, 1.7л",
+                        Price = 2999M,
+                        ImageUrl = "/images/polaris-kettle.png",
+                        Category = "Бытовая техника",
+                        InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "Tefal OptiGrill+ GC712",
+                        Description = "Умный гриль с автоматическими программами",
+                        Price = 12999M,
+                        ImageUrl = "/images/tefal-optigrill.png",
+                        Category = "Бытовая техника",
+                        InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "Redmond RMC-M92",
+                        Description = "Мультиварка с 45 программами приготовления",
+                        Price = 5999M,
+                        ImageUrl = "/images/redmond-multicooker.png",
+                        Category = "Бытовая техника",
+                        InStock = true
+                    },
+                    new Product 
+                    { 
+                        Name = "Philips EP2231/40",
+                        Description = "Автоматическая кофемашина с капучинатором",
+                        Price = 39999M,
+                        ImageUrl = "/images/philips-coffee.png",
+                        Category = "Бытовая техника",
+                        InStock = true
                     }
                 };
 
                 context.Products.AddRange(products);
                 context.SaveChanges();
             }
+        }
+
+        public static void UpdateProducts(ApplicationDbContext context)
+        {
+            // Очищаем существующие продукты
+            context.Products.RemoveRange(context.Products);
+            context.SaveChanges();
+            
+            // Вызываем Initialize для добавления всех продуктов заново
+            Initialize(context);
         }
     }
 } 
