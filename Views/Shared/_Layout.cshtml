@@ -4,14 +4,53 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - hazinDNS</title>
-    <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/hazinDNS_v2.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
+        .price-block {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .main-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            line-height: 1;
+        }
+        
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .btn-icon:hover {
+            background: #f8f9fa;
+            border-color: #ccc;
+        }
+        
+        .btn-icon i {
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .btn-icon[data-wishlist-button].in-wishlist i {
+            color: #dc3545;
+        }
+
         .product-card {
             height: 100%;
             display: flex;
@@ -51,6 +90,10 @@
             font-weight: bold;
             color: #2c3e50;
             margin: 1rem 0;
+            white-space: nowrap;
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            display: inline-block;
         }
 
         .card {
@@ -107,6 +150,29 @@
             opacity: 1;
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
         }
+
+        .search-form {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 1rem;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
     </style>
 </head>
 <body>
@@ -128,16 +194,9 @@
                             </a>
                         </li>
                         <li class="nav-item flex-grow-1">
-                            <form class="search-form mx-3" action="/Home/Search" method="get">
-                                <div class="input-group">
-                                    <input class="form-control" type="search" name="query" 
-                                           placeholder="Поиск товаров..." aria-label="Search"
-                                           value="@Context.Request.Query["query"]"
-                                           minlength="3">
-                                    <button class="btn btn-outline-primary" type="submit">
-                                        <i class="bi bi-search"></i>
-                                    </button>
-                                </div>
+                            <form class="search-form" asp-controller="Home" asp-action="Search" method="get" id="searchForm">
+                                <input class="search-input" type="text" name="query" placeholder="Поиск товаров..." />
+                                <i class="bi bi-search search-icon"></i>
                             </form>
                         </li>
                     </ul>
@@ -475,7 +534,14 @@
 
         // Вызываем проверку при загрузке страницы
         document.addEventListener('DOMContentLoaded', checkWishlistItems);
+
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const searchTerm = this.querySelector('input[name="query"]').value;
+            if (searchTerm.trim()) {
+                window.location.href = `/Home/Search?query=${encodeURIComponent(searchTerm)}`;
+            }
+        });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

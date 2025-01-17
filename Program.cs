@@ -12,6 +12,8 @@ using System.Text.Json;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Globalization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace hazinDNS_v2
 {
@@ -39,7 +41,11 @@ namespace hazinDNS_v2
             var jwtAudience = builder.Configuration["Jwt:Audience"] ?? throw new InvalidOperationException("JWT audience is not configured");
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                options.Filters.Add(new IgnoreAntiforgeryTokenAttribute());
+            });
             builder.Services.AddScoped<CartController>();
             builder.Services.AddScoped<WishlistController>();
             builder.Services.AddHttpContextAccessor();
@@ -84,6 +90,11 @@ namespace hazinDNS_v2
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapControllerRoute(
+                name: "admin",
+                pattern: "admin/{action=Index}/{id?}",
+                defaults: new { controller = "Admin" });
 
             using (var scope = app.Services.CreateScope())
             {

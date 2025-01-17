@@ -31,7 +31,7 @@ namespace hazinDNS_v2.Controllers
                            p.Category.Contains(query))
                 .ToListAsync();
 
-            ViewBag.SearchQuery = query;
+            ViewBag.SearchTerm = query;
             return View("Index", products);
         }
 
