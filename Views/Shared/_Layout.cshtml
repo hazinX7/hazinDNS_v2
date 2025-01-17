@@ -153,26 +153,15 @@
             fetch('/Balance/GetBalance')
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('userBalance').textContent = data.balance;
+                    document.getElementById('userBalance').textContent = data.balance.toLocaleString('ru-RU');
                 });
         }
 
         window.onload = function() {
-            fetch('/api/Auth/checkAuth')
-            .then(response => {
-                if (response.ok) {
-                    document.getElementById('loginItem').style.display = 'none';
-                    document.getElementById('logoutItem').style.display = 'block';
-                    document.getElementById('profileItem').style.display = 'block';
-                    document.getElementById('balanceItem').style.display = 'block';
-                    updateUserBalance();
-                } else {
-                    document.getElementById('loginItem').style.display = 'block';
-                    document.getElementById('logoutItem').style.display = 'none';
-                    document.getElementById('profileItem').style.display = 'none';
-                    document.getElementById('balanceItem').style.display = 'none';
-                }
-            });
+            if (document.getElementById('userBalance')) {
+                updateUserBalance();
+            }
+            updateCartCount();
         }
 
         // Функция выхода
