@@ -73,6 +73,11 @@ namespace hazinDNS_v2
             app.UseAuthorization();
 
             app.MapControllerRoute(
+                name: "profile",
+                pattern: "Profile",
+                defaults: new { controller = "Account", action = "Profile" });
+
+            app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
