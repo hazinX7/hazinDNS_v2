@@ -83,14 +83,24 @@
             "progressBar": true,
             "positionClass": "toast-bottom-right",
             "timeOut": "5000",
-            "extendedTimeOut": "2000"
+            "extendedTimeOut": "2000",
+            "preventDuplicates": true
         };
 
-        // Обработка ввода суммы
+        // Обработка ввода суммы для карты
         document.getElementById('amount').addEventListener('input', function(e) {
             const value = parseFloat(this.value);
             if (value > 750000) {
-                toastr.warning('Пожалуйста, выберите значение не более 750000.');
+                toastr.warning('Пожалуйста, выберите значение не более 750000 ₽');
+                this.value = 750000;
+            }
+        });
+
+        // Обработка ввода суммы для СБП
+        document.getElementById('sbpAmount').addEventListener('input', function(e) {
+            const value = parseFloat(this.value);
+            if (value > 750000) {
+                toastr.warning('Пожалуйста, выберите значение не более 750000 ₽');
                 this.value = 750000;
             }
         });
@@ -188,16 +198,42 @@
         // Обработка формы СБП
         document.getElementById('sbpForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const amount = parseFloat(document.getElementById('sbpAmount').value);
-            const phone = document.getElementById('phoneNumber').value.replace(/\D/g, '');
+            
+            const data = {
+                cardNumber: "0000000000000000", // Фиктивный номер карты для СБП
+                expiryDate: "01/99", // Фиктивная дата
+                cvv: "000", // Фиктивный CVV
+                amount: parseFloat(document.getElementById('sbpAmount').value)
+            };
 
-            if (amount > 750000) {
+            if (data.amount > 750000) {
                 toastr.warning('Пожалуйста, выберите значение не более 750000.');
                 return;
             }
 
-            // Здесь будет логика обработки СБП платежа
-            toastr.info('Функция оплаты через СБП находится в разработке');
+            fetch('/Balance/UpdateBalance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    toastr.success('Баланс успешно пополнен');
+                    loadCurrentBalance();
+                    this.reset(); // Очищаем форму после успешного пополнения
+                    if (window.updateUserBalance) {
+                        window.updateUserBalance();
+                    }
+                } else {
+                    toastr.error(result.message);
+                }
+            })
+            .catch(error => {
+                toastr.error('Произошла ошибка при пополнении баланса');
+            });
         });
     </script>
 } 
