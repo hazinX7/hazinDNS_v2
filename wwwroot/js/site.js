@@ -55,3 +55,19 @@ function updateQuantity(productId, delta) {
         alert('Ошибка при обновлении количества товара');
     });
 }
+
+let searchTimeout;
+
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.querySelector('input[name="query"]');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                if (this.value.length >= 3) {
+                    this.closest('form').submit();
+                }
+            }, 500);
+        });
+    }
+});

@@ -123,3 +123,52 @@ body {
 .table-sm td {
     vertical-align: middle;
 }
+
+.search-form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-form .input-group {
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+}
+
+.search-form .form-control {
+    border-right: none;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+}
+
+.search-form .form-control:focus {
+    box-shadow: none;
+}
+
+.search-form .btn {
+    border: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+.search-form .btn:hover {
+    background-color: transparent;
+    color: var(--bs-primary);
+}
+
+.search-form .btn:focus {
+    box-shadow: none;
+}
+
+.search-form .input-group:focus-within {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+}

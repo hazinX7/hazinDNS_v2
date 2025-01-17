@@ -82,29 +82,52 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
+                        <li class="nav-item flex-grow-1">
+                            <form class="search-form mx-3" action="/Home/Search" method="get">
+                                <div class="input-group">
+                                    <input class="form-control" type="search" name="query" 
+                                           placeholder="Поиск товаров..." aria-label="Search"
+                                           value="@Context.Request.Query["query"]"
+                                           minlength="3">
+                                    <button class="btn btn-outline-primary" type="submit">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item" id="balanceItem" style="display: none;">
-                            <a class="nav-link text-dark" href="/Balance">
-                                <i class="bi bi-wallet2"></i> Баланс: <span id="userBalance">0</span> ₽
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#" onclick="openCart()">
-                                <i class="bi bi-cart"></i> Корзина (<span id="cartItemCount">0</span>)
-                            </a>
-                        </li>
-                        <li class="nav-item" id="profileItem">
-                            <a class="nav-link text-dark" href="/Profile">
-                                <i class="bi bi-person"></i> Личный кабинет
-                            </a>
-                        </li>
-                        <li class="nav-item" id="loginItem">
-                            <a class="nav-link text-dark" href="/Home/Login">Войти</a>
-                        </li>
-                        <li class="nav-item" id="logoutItem" style="display: none;">
-                            <a class="nav-link text-dark" href="#" onclick="logout()">Выйти</a>
-                        </li>
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item" id="balanceItem">
+                                <a class="nav-link text-dark" href="/Balance">
+                                    <i class="bi bi-wallet2"></i> Баланс: <span id="userBalance">0</span> ₽
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#" onclick="openCart()">
+                                    <i class="bi bi-cart"></i> Корзина (<span id="cartItemCount">0</span>)
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Profile">
+                                    <i class="bi bi-person"></i> Личный кабинет
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#" onclick="logout()">
+                                    <i class="bi bi-box-arrow-right"></i> Выйти
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Home/Login">
+                                    <i class="bi bi-box-arrow-in-right"></i> Войти
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

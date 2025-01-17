@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using hazinDNS_v2.Models;
 using Microsoft.AspNetCore.Authorization;
 using hazinDNS_v2.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace hazinDNS_v2.Controllers
 {
@@ -17,10 +18,27 @@ namespace hazinDNS_v2.Controllers
             _context = context;
         }
 
-        [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Search(string query)
         {
-            var products = _context.Products.ToList();
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var products = await _context.Products
+                .Where(p => p.Name.Contains(query) || 
+                           p.Description.Contains(query) ||
+                           p.Category.Contains(query))
+                .ToListAsync();
+
+            ViewBag.SearchQuery = query;
+            return View("Index", products);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Index()
+        {
+            var products = await _context.Products.ToListAsync();
             return View(products);
         }
 
