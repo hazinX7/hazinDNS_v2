@@ -41,12 +41,28 @@
 
 @section Scripts {
     <script>
+        // Конфигурация toastr
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "timeOut": "5000",
+            "extendedTimeOut": "2000"
+        };
+
+        // Обработка ввода суммы
+        document.getElementById('amount').addEventListener('input', function(e) {
+            const value = parseFloat(this.value);
+            if (value > 750000) {
+                toastr.warning('Пожалуйста, выберите значение не более 750000.');
+                this.value = 750000;
+            }
+        });
+
         // Форматирование номера карты
         document.getElementById('cardNumber').addEventListener('input', function(e) {
             let value = this.value.replace(/\D/g, '');
-            // Добавляем пробел после каждых 4 цифр
             value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
-            // Ограничиваем длину с учетом пробелов
             if (value.length > 19) {
                 value = value.slice(0, 19);
             }
