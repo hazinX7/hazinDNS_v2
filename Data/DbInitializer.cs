@@ -4,6 +4,16 @@ namespace hazinDNS_v2.Data
 {
     public static class DbInitializer
     {
+        public static void ResetAdminBalance(ApplicationDbContext context)
+        {
+            var admin = context.Users.FirstOrDefault(u => u.UserName == "admin");
+            if (admin != null)
+            {
+                admin.Balance = 0;
+                context.SaveChanges();
+            }
+        }
+
         public static void Initialize(ApplicationDbContext context)
         {
             context.Database.EnsureCreated();

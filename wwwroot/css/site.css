@@ -172,3 +172,24 @@ body {
     border-color: var(--bs-primary);
     box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
 }
+
+/* Стили для карточек категорий */
+.category-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid rgba(0,0,0,.125);
+    background-color: #fff;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.category-card .card-title {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.category-card .btn {
+    width: 100%;
+}

@@ -12,6 +12,55 @@
                         <label class="form-label">Текущий баланс</label>
                         <p class="form-control-static" id="currentBalance">Загрузка...</p>
                     </div>
+
+                    <!-- Вкладки способов оплаты -->
+                    <ul class="nav nav-tabs mb-3" id="paymentTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="card-tab" data-bs-toggle="tab" 
+                                    data-bs-target="#card" type="button" role="tab">
+                                <i class="bi bi-credit-card"></i> Банковская карта
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="qr-tab" data-bs-toggle="tab" 
+                                    data-bs-target="#qr" type="button" role="tab">
+                                <i class="bi bi-qr-code"></i> СБП
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!-- Содержимое вкладок -->
+                    <div class="tab-content" id="paymentTabsContent">
+                        <!-- Вкладка оплаты картой -->
+                        <div class="tab-pane fade show active" id="card" role="tabpanel">
+                            <div class="mb-3">
+                                <label class="form-label">Номер карты</label>
+                                <input type="text" class="form-control" id="cardNumber" 
+                                       placeholder="0000 0000 0000 0000" maxlength="19">
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label class="form-label">Срок действия</label>
+                                    <input type="text" class="form-control" id="cardExpiry" 
+                                           placeholder="ММ/ГГ" maxlength="5">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">CVV</label>
+                                    <input type="password" class="form-control" id="cardCvv" 
+                                           placeholder="***" maxlength="3">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Вкладка СБП -->
+                        <div class="tab-pane fade" id="qr" role="tabpanel">
+                            <div class="text-center mb-3">
+                                <img src="https://placehold.co/200x200" alt="QR Code" class="img-fluid">
+                                <p class="mt-2 text-muted">Отсканируйте QR-код для оплаты через СБП</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="mb-3">
                         <label for="amount" class="form-label">Сумма пополнения</label>
                         <input type="number" class="form-control" id="amount" min="1" step="1">
@@ -27,6 +76,22 @@
 
 @section Scripts {
     <script>
+        // Форматирование номера карты
+        document.getElementById('cardNumber')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+            e.target.value = value;
+        });
+
+        // Форматирование срока действия
+        document.getElementById('cardExpiry')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.slice(0,2) + '/' + value.slice(2);
+            }
+            e.target.value = value;
+        });
+
         function updateBalance() {
             fetch('/Balance/GetBalance')
                 .then(response => response.json())
@@ -42,6 +107,18 @@
                 return;
             }
 
+            // Проверка заполнения данных карты на активной вкладке
+            if (document.querySelector('#card.active')) {
+                const cardNumber = document.getElementById('cardNumber').value;
+                const cardExpiry = document.getElementById('cardExpiry').value;
+                const cardCvv = document.getElementById('cardCvv').value;
+
+                if (!cardNumber || !cardExpiry || !cardCvv) {
+                    alert('Заполните все данные карты');
+                    return;
+                }
+            }
+
             fetch('/Balance/AddBalance', {
                 method: 'POST',
                 headers: {
@@ -55,6 +132,12 @@
                     alert('Баланс успешно пополнен');
                     updateBalance();
                     document.getElementById('amount').value = '';
+                    // Очистка полей карты
+                    if (document.getElementById('cardNumber')) {
+                        document.getElementById('cardNumber').value = '';
+                        document.getElementById('cardExpiry').value = '';
+                        document.getElementById('cardCvv').value = '';
+                    }
                 }
             });
         }
@@ -62,4 +145,33 @@
         // Обновляем баланс при загрузке страницы
         window.addEventListener('load', updateBalance);
     </script>
-} 
+}
+
+<style>
+.nav-tabs .nav-link {
+    color: #6c757d;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--bs-primary);
+    background: none;
+    border-bottom: 2px solid var(--bs-primary);
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: transparent;
+    border-bottom: 2px solid var(--bs-primary);
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.tab-content {
+    padding-top: 1rem;
+}
+</style> 
