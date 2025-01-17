@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("hazinDNS_v2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6690e4a7254ad70c90d2e3796bd94e6360514f23")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+31c20fda988f359d5f4c3e8ea0c96405406562aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("hazinDNS_v2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("hazinDNS_v2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

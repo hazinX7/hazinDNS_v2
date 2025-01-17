@@ -83,36 +83,63 @@
 @section Scripts {
     <script>
         function placeOrder() {
-            const address = document.getElementById('deliveryAddress').value;
-            if (!address) {
-                alert('Пожалуйста, введите адрес доставки');
+            const deliveryAddress = document.getElementById('deliveryAddress').value;
+            
+            if (!deliveryAddress) {
+                Swal.fire({
+                    title: 'Ошибка',
+                    text: 'Пожалуйста, укажите адрес доставки',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#dc3545'
+                });
                 return;
             }
 
             fetch('/Order/PlaceOrder', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ deliveryAddress: address })
+                body: JSON.stringify({ deliveryAddress: deliveryAddress })
             })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(data => {
-                        throw new Error(data.message || 'Произошла ошибка при оформлении заказа');
-                    });
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Заказ успешно оформлен!');
-                    window.location.href = '/';
+                    Swal.fire({
+                        title: 'Заказ оформлен!',
+                        text: 'Ваш заказ успешно оформлен и принят в обработку',
+                        icon: 'success',
+                        confirmButtonText: 'Перейти к заказам',
+                        confirmButtonColor: '#28a745',
+                        showConfirmButton: true,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        customClass: {
+                            popup: 'animated fadeInDown'
+                        }
+                    }).then((result) => {
+                        window.location.href = '/Order/History';
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Ошибка',
+                        text: data.message || 'Произошла ошибка при оформлении заказа',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#dc3545'
+                    });
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert(error.message || 'Произошла ошибка при оформлении заказа');
+                Swal.fire({
+                    title: 'Ошибка',
+                    text: 'Произошла ошибка при оформлении заказа',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#dc3545'
+                });
             });
         }
     </script>
