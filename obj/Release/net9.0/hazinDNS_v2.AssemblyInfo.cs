@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("hazinDNS_v2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67ea1b32eee06205d5a2b6eec378dfaf18ff479e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6ef2e4ffdd9aefbcd565e85c9c157defb90de70f")]
 [assembly: System.Reflection.AssemblyProductAttribute("hazinDNS_v2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("hazinDNS_v2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

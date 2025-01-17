@@ -21,7 +21,11 @@ namespace hazinDNS_v2
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.WebHost.UseUrls("http://localhost:5179");
+            builder.WebHost.UseUrls("http://0.0.0.0:5179");
+            builder.WebHost.ConfigureKestrel(serverOptions =>
+            {
+                serverOptions.ListenAnyIP(5179);
+            });
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
@@ -62,10 +66,8 @@ namespace hazinDNS_v2
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

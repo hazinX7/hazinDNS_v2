@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0MR2owLV27U=",
+  "dgSpecHash": "D94giDcFF0E=",
   "success": true,
-  "projectFilePath": "C:\\Users\\angry\\OneDrive\\Документы\\Готовый\\hazinDNS_v2\\hazinDNS_v2.csproj",
+  "projectFilePath": "C:\\Users\\angry\\OneDrive\\Рабочий стол\\Service\\hazinDNS_v2\\hazinDNS_v2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\angry\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\angry\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
