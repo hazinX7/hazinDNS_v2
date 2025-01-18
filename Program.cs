@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Localization;
 
 namespace hazinDNS_v2
 {
@@ -34,6 +35,13 @@ namespace hazinDNS_v2
                     IsEssential = true,
                     SameSite = SameSiteMode.Lax
                 };
+            });
+
+            builder.Services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new RequestCulture("ru-RU");
+                options.SupportedCultures = new List<CultureInfo> { new CultureInfo("ru-RU") };
+                options.SupportedUICultures = new List<CultureInfo> { new CultureInfo("ru-RU") };
             });
 
             var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT key is not configured");
@@ -77,6 +85,8 @@ namespace hazinDNS_v2
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseRequestLocalization();
+
             app.MapControllerRoute(
                 name: "profile",
                 pattern: "Profile",
@@ -99,8 +109,21 @@ namespace hazinDNS_v2
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<ApplicationDbContext>();
-                DbInitializer.UpdateProducts(context);
+                try 
+                {
+                    var context = services.GetRequiredService<ApplicationDbContext>();
+                    // Убедимся, что база данных создана и применены все миграции
+                    context.Database.EnsureCreated();
+                    
+                    // Теперь можно обновлять продукты
+                    DbInitializer.UpdateProducts(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "Произошла ошибка при инициализации базы данных.");
+                    throw;
+                }
             }
 
             app.Run();
