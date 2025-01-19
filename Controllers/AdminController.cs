@@ -84,5 +84,17 @@ namespace hazinDNS_v2.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> ClearDatabase()
+        {
+            _context.Users.RemoveRange(_context.Users);
+            _context.Products.RemoveRange(_context.Products);
+            _context.CartItems.RemoveRange(_context.CartItems);
+            // Очистка других таблиц...
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 } 

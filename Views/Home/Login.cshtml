@@ -7,7 +7,7 @@
 <div class="row justify-content-center">
     <div class="col-md-4">
         <h2 class="text-center">Вход</h2>
-        <form id="loginForm">
+        <form id="loginForm" onsubmit="event.preventDefault(); login();">
             <div class="form-group">
                 <label for="username">Имя пользователя</label>
                 <input type="text" class="form-control" id="username" name="username" required>
@@ -19,7 +19,7 @@
             <button type="submit" class="btn btn-primary w-100 mt-3">Войти</button>
         </form>
         <div class="text-center mt-3">
-            <a href="/Home/Register">Зарегистрироваться</a>
+            <a href="/Home/Register">Нет аккаунта? Зарегистрироваться</a>
         </div>
     </div>
 </div>

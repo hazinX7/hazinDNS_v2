@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\angry\\OneDrive\\Рабочий стол\\DNS\\Final\\hazinDNS_v2\\hazinDNS_v2.csproj": {}
+    "C:\\Users\\angry\\OneDrive\\Рабочий стол\\DNS\\Final2\\hazinDNS_v2\\hazinDNS_v2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\angry\\OneDrive\\Рабочий стол\\DNS\\Final\\hazinDNS_v2\\hazinDNS_v2.csproj": {
+    "C:\\Users\\angry\\OneDrive\\Рабочий стол\\DNS\\Final2\\hazinDNS_v2\\hazinDNS_v2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\angry\\OneDrive\\Рабочий стол\\DNS\\Final\\hazinDNS_v2\\hazinDNS_v2.csproj",
+        "projectUniqueName": "C:\\Users\\angry\\OneDrive\\Рабочий стол\\DNS\\Final2\\hazinDNS_v2\\hazinDNS_v2.csproj",
         "projectName": "hazinDNS_v2",
-        "projectPath": "C:\\Users\\angry\\OneDrive\\Рабочий стол\\DNS\\Final\\hazinDNS_v2\\hazinDNS_v2.csproj",
+        "projectPath": "C:\\Users\\angry\\OneDrive\\Рабочий стол\\DNS\\Final2\\hazinDNS_v2\\hazinDNS_v2.csproj",
         "packagesPath": "C:\\Users\\angry\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\angry\\OneDrive\\Рабочий стол\\DNS\\Final\\hazinDNS_v2\\obj\\",
+        "outputPath": "C:\\Users\\angry\\OneDrive\\Рабочий стол\\DNS\\Final2\\hazinDNS_v2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

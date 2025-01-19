@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using System.ComponentModel.DataAnnotations;
 
 namespace hazinDNS_v2.Controllers
 {
@@ -39,7 +40,7 @@ namespace hazinDNS_v2.Controllers
 
                 if (user == null || user.Password != model.Password)
                 {
-                    return Unauthorized("Неверное имя пользователя или пароль");
+                    return Unauthorized(new { message = "Неверное имя пользователя или пароль" });
                 }
 
                 var claims = new List<Claim>
@@ -54,12 +55,12 @@ namespace hazinDNS_v2.Controllers
 
                 await HttpContext.SignInAsync("Cookies", principal);
 
-                return Ok(new { success = true });
+                return Ok(new { success = true, message = "Вы успешно вошли в систему" });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Ошибка при входе пользователя");
-                return StatusCode(500, "Произошла ошибка при входе");
+                return StatusCode(500, new { message = "Произошла ошибка при входе" });
             }
         }
 
@@ -68,13 +69,20 @@ namespace hazinDNS_v2.Controllers
         {
             _logger.LogInformation($"Попытка регистрации пользователя: {model.Username}");
 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = "Ошибка! Пароль должен содержать минимум 6 символов" });
+            }
+
             var existingUser = await _context.Users
-                .FirstOrDefaultAsync(u => u.Username == model.Username || u.Email == model.Email);
+                .FirstOrDefaultAsync(u => 
+                    u.Username.ToLower() == model.Username.ToLower() || 
+                    u.Email.ToLower() == model.Email.ToLower());
 
             if (existingUser != null)
             {
                 _logger.LogWarning($"Пользователь уже существует: {model.Username}");
-                return BadRequest("Пользователь с таким именем или email уже существует");
+                return BadRequest(new { message = "Пользователь с таким именем или email уже существует" });
             }
 
             var user = new User
@@ -110,48 +118,28 @@ namespace hazinDNS_v2.Controllers
             return Unauthorized();
         }
 
-        private string GenerateJwtToken(User user)
+        public class LoginModel
         {
-            var jwtKey = _configuration["Jwt:Key"] ?? 
-                throw new InvalidOperationException("JWT key is not configured");
-            var jwtIssuer = _configuration["Jwt:Issuer"] ?? 
-                throw new InvalidOperationException("JWT issuer is not configured");
-            var jwtAudience = _configuration["Jwt:Audience"] ?? 
-                throw new InvalidOperationException("JWT audience is not configured");
+            [Required(ErrorMessage = "Введите имя пользователя")]
+            public string Username { get; set; } = string.Empty;
 
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            [Required(ErrorMessage = "Введите пароль")]
+            public string Password { get; set; } = string.Empty;
+        }
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim("UserId", user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role)
-            };
+        public class RegisterModel
+        {
+            [Required(ErrorMessage = "Введите имя пользователя")]
+            [StringLength(50, ErrorMessage = "Имя пользователя должно быть от {2} до {1} символов", MinimumLength = 3)]
+            public string Username { get; set; } = string.Empty;
 
-            var token = new JwtSecurityToken(
-                issuer: jwtIssuer,
-                audience: jwtAudience,
-                claims: claims,
-                expires: DateTime.Now.AddHours(3),
-                signingCredentials: credentials
-            );
+            [Required(ErrorMessage = "Введите email")]
+            [EmailAddress(ErrorMessage = "Некорректный email адрес")]
+            public string Email { get; set; } = string.Empty;
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            [Required(ErrorMessage = "Введите пароль")]
+            [StringLength(100, ErrorMessage = "Пароль должен содержать минимум {2} символов", MinimumLength = 6)]
+            public string Password { get; set; } = string.Empty;
         }
     }
-
-    public class LoginModel
-    {
-        public string Username { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-    }
-
-    public class RegisterModel
-    {
-        public string Username { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-    }
-} 
+}    

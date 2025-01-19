@@ -11,7 +11,7 @@ namespace hazinDNS_v2.Models
         public string Username { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(100)]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "Пароль должен содержать минимум 6 символов")]
         public string Password { get; set; } = string.Empty;
 
         [Required]

@@ -37,7 +37,7 @@ namespace hazinDNS_v2.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItems");
+                    b.ToTable("CartItems", (string)null);
                 });
 
             modelBuilder.Entity("hazinDNS_v2.Models.Order", b =>
@@ -69,7 +69,7 @@ namespace hazinDNS_v2.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("hazinDNS_v2.Models.OrderItem", b =>
@@ -96,7 +96,7 @@ namespace hazinDNS_v2.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("hazinDNS_v2.Models.Product", b =>
@@ -131,7 +131,7 @@ namespace hazinDNS_v2.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("hazinDNS_v2.Models.User", b =>
@@ -164,30 +164,7 @@ namespace hazinDNS_v2.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("hazinDNS_v2.Models.Wishlist", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("DateAdded")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Wishlist");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("hazinDNS_v2.Models.CartItem", b =>
@@ -227,17 +204,6 @@ namespace hazinDNS_v2.Migrations
                         .IsRequired();
 
                     b.Navigation("Order");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("hazinDNS_v2.Models.Wishlist", b =>
-                {
-                    b.HasOne("hazinDNS_v2.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("Product");
                 });

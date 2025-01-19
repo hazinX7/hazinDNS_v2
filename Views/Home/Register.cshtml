@@ -7,7 +7,7 @@
 <div class="row justify-content-center">
     <div class="col-md-4">
         <h2 class="text-center">Регистрация</h2>
-        <form id="registerForm">
+        <form id="registerForm" onsubmit="event.preventDefault(); register();">
             <div class="form-group">
                 <label for="username">Имя пользователя</label>
                 <input type="text" class="form-control" id="username" name="username" required>
@@ -26,32 +26,4 @@
             <a href="/Home/Login">Уже есть аккаунт? Войти</a>
         </div>
     </div>
-</div>
-
-@section Scripts {
-    <script>
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const response = await fetch('/api/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: document.getElementById('username').value,
-                    email: document.getElementById('email').value,
-                    password: document.getElementById('password').value
-                })
-            });
-
-            if (response.ok) {
-                alert('Регистрация успешна! Теперь вы можете войти.');
-                window.location.href = '/Home/Login';
-            } else {
-                const error = await response.text();
-                alert(error);
-            }
-        });
-    </script>
-} 
+</div> 
